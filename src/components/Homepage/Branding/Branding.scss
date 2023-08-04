@@ -1,0 +1,24 @@
+.branding__logos {
+  max-width: 120rem;
+  margin: 0 auto;
+  height: 15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4.2rem;
+  margin-bottom: 5.8rem;
+  p {
+    font-family: var(--font-2);
+    font-size: 2.4rem;
+    text-transform: uppercase;
+  }
+  img {
+    width: 14.2rem;
+  }
+}
+
+.branding hr {
+  width: 120rem;
+  margin: 0 auto;
+  opacity: 0.3;
+}

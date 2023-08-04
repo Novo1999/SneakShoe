@@ -6,7 +6,8 @@ function Layout() {
     <>
     <nav className="navigation">
       <div className="nav__left">
-      <NavLink to="/" ><img  className="navigation__logo" src="/images/shoe-logo.png" alt="shoe on fire" /></NavLink>
+      <NavLink  to="/" ><img  className="nav__logo" src="/images/shoe-logo.png" alt="shoe on fire" /><span className="nav__logo-text">SneakShoe
+        </span></NavLink>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/men">Men</NavLink>
       <NavLink to="/women">Women</NavLink>

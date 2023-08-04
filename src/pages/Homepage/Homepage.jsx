@@ -1,7 +1,7 @@
 import "./Homepage.scss";
 import { Hero, Branding, About, HowShoes, BestSeller,NewArrivals, CTA,Contact, Gender, Recycle, CustomerReview, Footer } from "../../components";
 function Homepage() {
-  return <div>
+  return <div className="homepage">
     <Hero/>
     <Branding />
     <About />

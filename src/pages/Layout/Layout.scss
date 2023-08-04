@@ -19,13 +19,35 @@
         color: var(--clr-primary-2);
     }
 }
+.nav__logo {
+    width: 9rem;
+    height: 9rem;
+    transform: rotate(-25deg);
+    position: relative;
+    z-index: 2;
+}
+.nav__logo-text {
+    position: relative;
+    bottom: 5.4rem;
+    right: 3.5rem;
+    font-size: 0.8rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.4rem;
+    z-index: 0
+}
 .cart {
     border: none;
     background: none;
     cursor: pointer;
 }
 .cart__img {
+    border-radius: 50%;
     width: 4rem;
+}
+.cart__img:hover {
+    box-shadow: 0 0 5px 1px #333333a4;
+    transition: 0.2s all linear;
 }
 
 
@@ -35,8 +57,3 @@
     gap: 1.2rem;
 }
 
-.navigation__logo {
-    width: 10rem;
-    height: 10rem;
-    transform: rotate(-45deg);
-}

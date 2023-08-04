@@ -1,0 +1,46 @@
+.hero {
+    max-width: 172rem;
+    font-family: var(--font-1);
+    img {
+        width: 100%;
+    }
+}
+
+
+.hero__details {
+    position: absolute;
+    bottom: 25rem;
+    padding-left: 10rem;
+    color: var(--clr-primary);
+    width: 75%;
+    cursor: context-menu;
+}
+
+.hero__details-heading {
+    font-size: 5.4rem;
+    margin-bottom: 2.4rem;
+}
+
+.hero__details-description {
+    font-size: 1.8rem;
+    line-height: 1.6;
+}
+
+.hero__btn {
+    margin-top: 3.2rem;
+    display: flex;
+    gap: 1.2rem;
+    button {
+        text-transform: uppercase;
+        padding: 1.8rem;
+        font-family: var(--font-1);
+        font-weight: 700;
+        border: none;
+    }
+    button:hover {
+        color: var(--clr-primary);
+        background-color: var(--clr-primary-3);
+        transition: 0.2s linear all;
+        cursor: pointer;
+    }
+}
