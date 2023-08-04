@@ -1,7 +1,7 @@
 function Navbar() {
     return (
         <div>
-            Navbars
+            Navbar
         </div>
     )
 }
