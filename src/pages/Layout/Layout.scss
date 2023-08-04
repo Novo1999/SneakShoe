@@ -1,0 +1,42 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    max-width: 180rem;
+    color: var(--clr-primary-3);
+    a:link,a:visited {
+        text-decoration: none;
+        color: inherit;
+        font-size: 1.8rem;
+        font-family: var(--font-2);
+    }
+    margin: 0 auto;
+    padding: 0 1.8rem;
+    a:hover {
+        color: var(--clr-primary-2);
+        transition: 0.2s all linear;
+    }
+    a.active {
+        color: var(--clr-primary-2);
+    }
+}
+.cart {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.cart__img {
+    width: 4rem;
+}
+
+
+.nav__left,.nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.navigation__logo {
+    width: 10rem;
+    height: 10rem;
+    transform: rotate(-45deg);
+}
