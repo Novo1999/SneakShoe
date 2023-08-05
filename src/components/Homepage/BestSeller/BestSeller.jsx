@@ -8,15 +8,12 @@ console.log(bestSellers);
 // bestSellerIndices.map((item) => console.log(sneakers[item]));
 
 function BestSeller() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [currentSneaker, setCurrentSneaker] = useState(-1);
+  const [currentSneaker, setCurrentSneaker] = useState(null);
   function handleMouseEnter(i) {
-    setIsHovered(true);
     setCurrentSneaker(i);
   }
   function handleMouseLeave() {
-    setIsHovered(false);
-    setCurrentSneaker(-1);
+    setCurrentSneaker(null);
   }
 
   return (
@@ -37,9 +34,15 @@ function BestSeller() {
                 <div className="best__seller-sneakers--sale">Sale!</div>
               )}
               <img src={item.img} alt="sneaker and shoe image" />
-              {currentSneaker === i && (
-                <p className="best__seller-sneakers--quick-view">Quick View</p>
-              )}
+
+              <p
+                className={`best__seller-sneakers--quick-view ${
+                  currentSneaker === i ? "mouse-enter" : "mouse-leave"
+                }`}
+              >
+                Quick View
+              </p>
+
               <p className="best__seller-sneakers--name">{item.name}</p>
               <div className="best__seller-sneakers--price-section">
                 <p className="best__seller-sneakers--discount">

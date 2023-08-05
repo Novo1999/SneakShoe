@@ -7,9 +7,11 @@
   font-size: 1.8rem;
   font-family: var(--font-1);
   margin-bottom: 4.2rem;
+  margin-left: 2.4rem;
 }
 
 .best__seller-sneakers {
+  padding: 0 2.4rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -65,7 +67,15 @@
   height: 5rem;
   background-color: var(--clr-primary-2);
   color: var(--clr-primary);
-  animation: opacity 0.3s;
+  opacity: 0;
+}
+
+.mouse-enter {
+  animation: opacity 0.4s ease;
+  opacity: 10;
+}
+.mouse-leave {
+  animation: opacity-inverse 0.4s ease;
 }
 
 @keyframes opacity {
@@ -77,8 +87,15 @@
   }
 }
 
-.best__seller-sneakers--quick-view:hover {
+@keyframes opacity-inverse {
+  0% {
+    opacity: 10;
+  }
+  100% {
+    opacity: 0;
+  }
 }
+
 .best__seller-sneakers--sale {
   font-size: 1.4rem;
   font-family: var(--font-2);
@@ -90,7 +107,7 @@
   align-items: center;
   position: absolute;
   top: -2rem;
-  left: 35rem;
+  left: 91%;
   background-color: var(--clr-secondary-5);
   border-radius: 100%;
   z-index: 2;
