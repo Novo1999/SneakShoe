@@ -1,19 +1,11 @@
-import { useEffect } from "react";
 import "./BestSeller.scss";
-const url = "https://sneakers-pricing.p.rapidapi.com/%7BPATH%7D";
-const options = { method: "GET" };
+import { sneakers } from "./SneakersData";
+
+const bestSellerIndex = [1, 6, 5, 13, 7, 16];
+
+bestSellerIndex.map((item) => console.log(sneakers[item]));
 
 function BestSeller() {
-  async function fetchShoes() {
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  fetchShoes();
   return (
     <section>
       <div className="best__seller-heading">
