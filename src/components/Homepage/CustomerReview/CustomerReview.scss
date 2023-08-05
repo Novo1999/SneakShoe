@@ -1,0 +1,99 @@
+.customer__review {
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 9.6rem;
+  h2 {
+    font-family: var(--font-2);
+    font-weight: 400;
+    font-size: 4.2rem;
+    width: 80rem;
+    text-align: center;
+  }
+}
+
+.customer__review-container {
+  border: 1px solid #33333365;
+  width: 70%;
+  height: 30rem;
+  margin: 4.8rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4.2rem;
+  overflow: hidden;
+}
+
+.customer__review-rating {
+  font-size: 2.4rem;
+}
+.customer__review-review {
+  font-size: 2.4rem;
+  font-family: var(--font-2);
+  font-weight: 500;
+  margin: 3rem 0;
+}
+.customer__review-customer {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  img {
+    border-radius: 50%;
+  }
+  p {
+    font-family: var(--font-1);
+    text-transform: uppercase;
+    font-size: 1.8rem;
+  }
+}
+
+.slide-right {
+  animation: slide-left 0.5s forwards linear;
+}
+.slide-left {
+  animation: slide-right 0.5s forwards linear;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(-52rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    transform: translateX(52rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.customer__review-outside {
+  margin-right: 3.2rem;
+  display: grid;
+  grid-template-columns: 2rem 100% 2rem;
+  align-items: center;
+  justify-content: center;
+  button {
+    border: none;
+    font-size: 2.2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: var(--clr-primary);
+    border: 1px solid #33333371;
+  }
+  button:hover {
+    color: var(--clr-primary);
+    background-color: #33333371;
+    border: none;
+    transition: 0.3s linear all;
+  }
+}
+.customer__review-outside button:nth-child(3) {
+  position: relative;
+  right: 3rem;
+}

@@ -4,8 +4,6 @@ import { sneakers } from "./SneakersData";
 
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];
 const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
-console.log(bestSellers);
-// bestSellerIndices.map((item) => console.log(sneakers[item]));
 
 function BestSeller() {
   const [currentSneaker, setCurrentSneaker] = useState(null);

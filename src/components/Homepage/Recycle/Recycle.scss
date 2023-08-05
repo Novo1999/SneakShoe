@@ -1,0 +1,49 @@
+.recycle__container {
+  max-width: 172rem;
+  background-color: var(--clr-secondary-3);
+  display: grid;
+  grid-template-columns: 42% 25%;
+  justify-content: center;
+  align-items: center;
+  padding: 9.6rem 4.8rem;
+}
+
+.recycle__container-left {
+  p {
+    margin-bottom: 6.4rem;
+    width: 45rem;
+    font-family: var(--font-1);
+    font-size: 2rem;
+    color: var(--clr-primary-3);
+  }
+}
+
+.recycle__badges {
+  display: flex;
+  gap: 4.8rem;
+}
+
+.recycle__container-right {
+  img {
+    border-radius: 50%;
+    border: 2px solid black;
+    border-style: dotted;
+    padding: 0.4rem;
+    animation: round 1000s infinite linear;
+  }
+}
+
+@keyframes round {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(7200deg);
+  }
+}
+
+.recycle__badges {
+  img {
+    animation: round 1000s infinite linear;
+  }
+}

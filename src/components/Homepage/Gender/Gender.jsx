@@ -52,7 +52,7 @@ function Gender() {
           <div className="gender__container-woman-title">
             <h2>women</h2>
             <Link className="gender__container-link" to="women">
-              shop woman
+              shop women
             </Link>
           </div>
         </div>
