@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Star from "./Stars";
 import "./CustomerReview.scss";
 
 const Reviews = [
@@ -75,9 +76,7 @@ function CustomerReview() {
               applyClass ? "slide-left" : ""
             } ${applyClass2 ? "slide-right" : ""}`}
           >
-            <p className="customer__review-rating">
-              {Reviews[currentReview].rating}
-            </p>
+            <Star quantity={Reviews[currentReview].rating} />
             <p className="customer__review-review">
               {Reviews[currentReview].review}
             </p>
@@ -89,6 +88,9 @@ function CustomerReview() {
         </div>
         <button onClick={handleRight}>&rarr;</button>
       </div>
+      <p className="customer__review-bottom-text">
+        4.8 average rating from 1814 reviews
+      </p>
     </section>
   );
 }
