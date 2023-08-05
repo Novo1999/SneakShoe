@@ -84,6 +84,7 @@ function CustomerReview() {
               <img src={Reviews[currentReview].img} alt="customer image" />
               <p>{Reviews[currentReview].name}</p>
             </div>
+            <div id="customer__review-btns"></div>
           </div>
         </div>
         <button onClick={handleRight}>&rarr;</button>

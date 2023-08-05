@@ -25,7 +25,12 @@
   transition: 0.3s linear all;
 }
 
-.gender__container-man,
+.gender__container-man {
+  position: relative;
+  img {
+    width: 100%;
+  }
+}
 .gender__container-woman {
   position: relative;
   img {
