@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import ProductModal from "../../ProductModal/ProductModal";
@@ -6,56 +6,97 @@ import ProductModal from "../../ProductModal/ProductModal";
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];
 const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
 
+const initialState = {
+  currentSneaker: null,
+  isOpened: false,
+  currentSneakerObject: {},
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "quickView":
+      return {
+        ...state,
+        isOpened: true,
+        currentSneakerObject: action.payload,
+      };
+    case "mouseEnter":
+      return {
+        ...state,
+        currentSneaker: action.payload,
+      };
+    case "mouseLeave":
+      return {
+        ...state,
+        currentSneaker: null,
+      };
+    case "closeModal":
+      return {
+        initialState,
+      };
+
+    default:
+      throw Error("Unknown Action");
+  }
+};
+
 function BestSeller() {
-  const [currentSneaker, setCurrentSneaker] = useState(null);
-  const [isOpened, setIsOpened] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  function handleQuickView(item) {
+    dispatch({ type: "quickView", payload: item });
+  }
   function handleMouseEnter(i) {
-    setCurrentSneaker(i);
+    dispatch({ type: "mouseEnter", payload: i });
   }
   function handleMouseLeave() {
-    setCurrentSneaker(null);
+    dispatch({ type: "mouseLeave" });
   }
   useEffect(() => {
     const html = document.documentElement;
-    if (isOpened) html.classList.add("hide-scrollbar");
+    if (state.isOpened) html.classList.add("hide-scrollbar");
     else html.classList.remove("hide-scrollbar");
-  }, [isOpened]);
+  }, [state.isOpened]);
 
   return (
     <section className="best__seller">
-      {isOpened && <ProductModal />}
+      {state.isOpened && (
+        <ProductModal
+          currentSneakerObject={state.currentSneakerObject}
+          dispatch={dispatch}
+        />
+      )}
       <div className="best__seller-heading">
         <h1>Our Best Seller</h1>
       </div>
       <div className="best__seller-sneakers">
-        {bestSellers.map((item, i) => {
+        {bestSellers.map((shoe, i) => {
           return (
             <div
               onMouseEnter={() => handleMouseEnter(i)}
-              onMouseLeave={() => handleMouseLeave(i)}
+              onMouseLeave={() => handleMouseLeave()}
               className="best__seller-sneaker-container"
-              key={item.name}
+              key={shoe.name}
             >
-              {item.discountedPrice && (
+              {shoe.discountedPrice && (
                 <div className="best__seller-sneakers--sale">Sale!</div>
               )}
-              <img src={item.img} alt="sneaker and shoe image" />
+              <img src={shoe.img} alt="sneaker and shoe image" />
 
               <p
-                onClick={() => setIsOpened(true)}
+                onClick={() => handleQuickView(shoe)}
                 className={`best__seller-sneakers--quick-view ${
-                  currentSneaker === i ? "mouse-enter" : "mouse-leave"
+                  state.currentSneaker === i ? "mouse-enter" : "mouse-leave"
                 }`}
               >
                 Quick View
               </p>
 
-              <p className="best__seller-sneakers--name">{item.name}</p>
+              <p className="best__seller-sneakers--name">{shoe.name}</p>
               <div className="best__seller-sneakers--price-section">
                 <p className="best__seller-sneakers--discount">
-                  {item.discountedPrice}
+                  {shoe.discountedPrice}
                 </p>
-                <p className="best__seller-sneakers--price">{item.price}</p>
+                <p className="best__seller-sneakers--price">{shoe.price}</p>
               </div>
             </div>
           );

@@ -1,18 +1,39 @@
+/* eslint-disable react/prop-types */
 import "./ProductModal.scss";
-function ProductModal() {
+function ProductModal({ dispatch, currentSneakerObject }) {
   return (
     <>
       <div className="modal__bg"></div>
 
       <div className="modal__container">
+        <button
+          onClick={() => dispatch({ type: "closeModal" })}
+          className="modal__close-btn"
+        ></button>
         <div className="modal__container-img">
-          <img src="/images/Shoe for sale/Sneaker-1.jpg" alt="Sneaker image" />
+          <img src={currentSneakerObject.img} alt="Sneaker image" />
         </div>
         <div className="modal__container-details">
           <div className="modal__details-section">
-            <h2 className="modal__container-title">Men&apos;s Navy Running</h2>
+            <h2 className="modal__container-title">
+              {currentSneakerObject.name}
+            </h2>
             <p className="modal__container-price">
-              <span>$104.90</span> & Free Shipping
+              {currentSneakerObject.discountedPrice && (
+                <span className="modal__container-price-discount">
+                  {currentSneakerObject.discountedPrice}
+                </span>
+              )}
+              <span
+                className={
+                  currentSneakerObject.discountedPrice
+                    ? "line-through"
+                    : "sneaker-price"
+                }
+              >
+                {currentSneakerObject.price}
+              </span>
+              & Free Shipping
             </p>
             <p className="modal__container-desc">
               Auctor eros suspendisse tellus venenatis sodales purus non
@@ -22,8 +43,8 @@ function ProductModal() {
             </p>
             <div className="modal__container-category">
               <p>Categories: </p>
-              <button>Men</button>
-              <button>Running</button>
+              <button>{currentSneakerObject.category}</button>
+              <button>{currentSneakerObject.altCategory}</button>
             </div>
             <div className="modal__container-checkout">
               <p>Guaranteed Safe Checkout</p>

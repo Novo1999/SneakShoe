@@ -12,8 +12,6 @@
 .modal__container {
   z-index: 11;
   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
   gap: 2.8rem;
   position: fixed;
   right: 0;
@@ -83,6 +81,16 @@
     width: 30rem;
   }
 }
+.modal__container-price-discount {
+  margin-right: 2rem;
+}
+.line-through {
+  text-decoration: line-through;
+  margin-right: 1rem;
+}
+.sneaker-price {
+  margin-right: 1rem;
+}
 .modal__container-checkout-payment {
   border: 1px solid rgba(0, 0, 0, 0.205);
   display: flex;
@@ -114,9 +122,6 @@
     padding: 1rem 1.5rem;
   }
 }
-// .modal-cart-section {
-//   background-color: var(--clr-primary-3);
-// }
 .modal__container-cart-buttons {
   display: flex;
   border: 1px solid rgba(0, 0, 0, 0.205);
@@ -156,4 +161,38 @@
     background-color: var(--clr-primary-2);
     transition: 0.3s all linear;
   }
+}
+
+.modal__close-btn {
+  position: absolute;
+  right: -1.5rem;
+  top: -2.5rem;
+  width: 3.2rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 0.5px solid #333;
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+}
+.modal__close-btn:before,
+.modal__close-btn:after {
+  position: absolute;
+  left: 1.9rem;
+  content: " ";
+  height: 3.3rem;
+  width: 0.2rem;
+  background-color: #333;
+}
+.modal__close-btn:before {
+  transform: rotate(45deg);
+}
+.modal__close-btn:after {
+  transform: rotate(-45deg);
+}
+.modal__close-btn:hover {
+  transform: rotate(90deg);
+  transition: 0.3s all linear;
 }

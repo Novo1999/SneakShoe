@@ -13,7 +13,6 @@ import {
   CustomerReview,
   Footer,
 } from "../../components";
-import ProductModal from "../../components/ProductModal/ProductModal";
 function Homepage() {
   return (
     <main className="homepage">
