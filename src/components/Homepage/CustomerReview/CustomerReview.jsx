@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Star from "./Stars";
 import "./CustomerReview.scss";
 
@@ -30,28 +30,28 @@ function CustomerReview() {
   const [curClicked, setCurClicked] = useState("");
   const [applyClass, setApplyClass] = useState(false);
   const [applyClass2, setApplyClass2] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
+  const handleCustomer = useCallback(
+    (btn, classFunction) => {
+      if (curClicked === btn) {
+        setBtnDisabled(true);
+        classFunction(true);
+        const timeoutId = setTimeout(() => {
+          classFunction(false);
+          setCurClicked("");
+          setBtnDisabled(false);
+        }, 510);
+        return () => clearTimeout(timeoutId);
+      }
+    },
+    [curClicked]
+  );
 
   useEffect(() => {
-    if (curClicked === "left") {
-      setApplyClass(true);
-      const timeoutId = setTimeout(() => {
-        setApplyClass(false);
-        setCurClicked("");
-      }, 500);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [curClicked]);
-
-  useEffect(() => {
-    if (curClicked === "right") {
-      setApplyClass2(true);
-      const timeoutId = setTimeout(() => {
-        setApplyClass2(false);
-        setCurClicked("");
-      }, 500);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [curClicked]);
+    handleCustomer("left", setApplyClass);
+    handleCustomer("right", setApplyClass2);
+  }, [handleCustomer]);
 
   function handleLeft() {
     if (currentReview === 0) setCurrentReview(Reviews.length);
@@ -69,7 +69,7 @@ function CustomerReview() {
     <section className="customer__review">
       <h2>Our Customers Speak for Us</h2>
       <div className="customer__review-outside">
-        <button onClick={handleLeft}>&larr;</button>
+        <button onClick={btnDisabled ? () => {} : handleLeft}>&larr;</button>
         <div className="customer__review-container">
           <div
             className={`customer__review-content ${
@@ -87,7 +87,7 @@ function CustomerReview() {
             <div id="customer__review-btns"></div>
           </div>
         </div>
-        <button onClick={handleRight}>&rarr;</button>
+        <button onClick={btnDisabled ? () => {} : handleRight}>&rarr;</button>
       </div>
       <p className="customer__review-bottom-text">
         4.8 average rating from 1814 reviews

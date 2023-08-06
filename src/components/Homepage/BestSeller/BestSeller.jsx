@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import ProductModal from "../../ProductModal/ProductModal";
@@ -8,15 +8,22 @@ const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
 
 function BestSeller() {
   const [currentSneaker, setCurrentSneaker] = useState(null);
+  const [isOpened, setIsOpened] = useState(false);
   function handleMouseEnter(i) {
     setCurrentSneaker(i);
   }
   function handleMouseLeave() {
     setCurrentSneaker(null);
   }
+  useEffect(() => {
+    const html = document.documentElement;
+    if (isOpened) html.classList.add("hide-scrollbar");
+    else html.classList.remove("hide-scrollbar");
+  }, [isOpened]);
 
   return (
     <section className="best__seller">
+      {isOpened && <ProductModal />}
       <div className="best__seller-heading">
         <h1>Our Best Seller</h1>
       </div>
@@ -35,6 +42,7 @@ function BestSeller() {
               <img src={item.img} alt="sneaker and shoe image" />
 
               <p
+                onClick={() => setIsOpened(true)}
                 className={`best__seller-sneakers--quick-view ${
                   currentSneaker === i ? "mouse-enter" : "mouse-leave"
                 }`}

@@ -17,7 +17,7 @@ import ProductModal from "../../components/ProductModal/ProductModal";
 function Homepage() {
   return (
     <main className="homepage">
-      {/* <Hero />
+      <Hero />
       <Branding />
       <About />
       <HowShoes />
@@ -27,8 +27,7 @@ function Homepage() {
       <CustomerReview />
       <CTA />
       <Contact />
-      <Footer /> */}
-      <ProductModal />
+      <Footer />
       {/* <NewArrivals /> */}
     </main>
   );

@@ -22,3 +22,11 @@ html {
   font-size: 10px;
   overflow-x: hidden;
 }
+
+body {
+  height: 100vh;
+}
+
+.hide-scrollbar {
+  overflow: hidden;
+}
