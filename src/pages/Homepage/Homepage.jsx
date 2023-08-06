@@ -13,22 +13,24 @@ import {
   CustomerReview,
   Footer,
 } from "../../components";
+import ProductModal from "../../components/ProductModal/ProductModal";
 function Homepage() {
   return (
-    <div className="homepage">
-      <Hero />
+    <main className="homepage">
+      {/* <Hero />
       <Branding />
       <About />
       <HowShoes />
       <BestSeller />
       <Gender />
-      {/* <NewArrivals /> */}
       <Recycle />
       <CustomerReview />
       <CTA />
       <Contact />
-      <Footer />
-    </div>
+      <Footer /> */}
+      <ProductModal />
+      {/* <NewArrivals /> */}
+    </main>
   );
 }
 

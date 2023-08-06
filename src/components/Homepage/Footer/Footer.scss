@@ -1,11 +1,16 @@
 .footer {
-  max-width: 175rem;
+  max-width: 191rem;
+  width: 113%;
+  background-color: var(--clr-secondary-3);
+  position: relative;
+  right: 9rem;
+  padding: 2rem;
+}
+
+.footer__container {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 auto;
-  background-color: var(--clr-secondary-3);
-  padding: 3rem;
   p {
     font-family: var(--font-1);
     font-weight: 400;

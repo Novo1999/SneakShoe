@@ -1,0 +1,142 @@
+.modal__container {
+  display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  gap: 2.8rem;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 90rem;
+  height: 45.2rem;
+}
+.modal__container-title {
+  font-size: 2.4rem;
+}
+.modal__container-img {
+  img {
+    width: 45rem;
+    height: 45rem;
+  }
+}
+
+.modal__container-details {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: var(--font-2);
+}
+.modal__details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: scroll;
+  padding: 1.2rem;
+}
+.modal__container-price {
+  span {
+    color: var(--clr-primary-3);
+    font-weight: 500;
+  }
+  font-size: 2.8rem;
+  color: var(--clr-secondary-4);
+}
+.modal__container-desc {
+  width: 40rem;
+  font-size: 2rem;
+  color: var(--clr-secondary-4);
+  line-height: 1.4;
+}
+.modal__container-checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  p {
+    text-align: center;
+    font-size: 2rem;
+    position: relative;
+    top: 1.1rem;
+    left: 7.5rem;
+    background-color: var(--clr-primary);
+    width: fit-content;
+    font-weight: 500;
+    color: var(--clr-primary-3);
+  }
+  img {
+    width: 30rem;
+  }
+}
+.modal__container-checkout-payment {
+  border: 1px solid rgba(0, 0, 0, 0.205);
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
+.modal__container-category {
+  display: flex;
+  gap: 1.2rem;
+  p {
+    font-size: 1.8rem;
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--clr-secondary-5);
+    font-weight: 700;
+  }
+  button:hover {
+    color: var(--clr-secondary-1);
+    transition: 0.3s all linear;
+  }
+}
+.modal__container-cart {
+  display: flex;
+  gap: 3.2rem;
+  button {
+    padding: 1rem 1.5rem;
+  }
+}
+.modal__container-cart-buttons {
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.205);
+  font-family: var(--font-1);
+  p {
+    border-left: 1px solid rgba(0, 0, 0, 0.205);
+    border-right: 1px solid rgba(0, 0, 0, 0.205);
+    font-size: 2.2rem;
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    font-size: 2.2rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+.modal__container-cart-btn {
+  button {
+    background-color: var(--clr-secondary-5);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: var(--font-1);
+    border: none;
+    height: 4.5rem;
+    cursor: pointer;
+    color: var(--clr-primary);
+  }
+  button:hover {
+    background-color: var(--clr-primary-2);
+    transition: 0.3s all linear;
+  }
+}
