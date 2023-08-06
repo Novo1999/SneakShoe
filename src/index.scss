@@ -28,5 +28,6 @@ body {
 }
 
 .hide-scrollbar {
-  overflow: hidden;
+  overflow-y: hidden;
+  padding-right: 1.6rem;
 }

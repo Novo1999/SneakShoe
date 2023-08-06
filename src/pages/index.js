@@ -7,3 +7,4 @@ export { default as Lookbook } from "./Lookbook/Lookbook";
 export { default as Sale } from "./Sale/Sale";
 export { default as Story } from "./Story/Story";
 export { default as Contact } from "./Contact/Contact";
+export { default as Cart } from "./Layout/Cart";
