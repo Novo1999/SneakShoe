@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import "./ProductModal.scss";
-function ProductModal({ dispatch, currentSneakerObject }) {
+function ProductModal({ dispatch, currentSneakerObject, state }) {
   return (
     <>
-      <div className="modal__bg"></div>
+      {state.overlayIsOpen && <div className="modal__bg"></div>}
 
       <div className="modal__container">
         <button

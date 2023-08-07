@@ -1,10 +1,30 @@
+import { useState, useEffect } from "react";
 import "./Layout.scss";
 import { NavLink, Outlet } from "react-router-dom";
+import Cart from "./Cart";
 
 function Layout() {
+  const [overlayIsOpen, setOverlayIsOpen] = useState(false);
+  const [hideScrollbar, setHideScrollbar] = useState(false);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    if (hideScrollbar) html.classList.add("hide-scrollbar");
+    else html.classList.remove("hide-scrollbar");
+  }, [hideScrollbar]);
+
+  function handleCart() {
+    setOverlayIsOpen(true);
+    setHideScrollbar(true);
+  }
   return (
     <>
-      {/* <div className="modal__bg"></div> */}
+      {overlayIsOpen && <div className="modal__bg"></div>}
+      <Cart
+        overlayIsOpen={overlayIsOpen}
+        onSetOverlayIsOpen={setOverlayIsOpen}
+        onSetHideScrollbar={setHideScrollbar}
+      />
       <nav className="navigation">
         <div className="nav__left">
           <NavLink to="/">
@@ -25,9 +45,9 @@ function Layout() {
         <div className="nav__right">
           <NavLink to="/our-story">Our Story</NavLink>
           <NavLink to="/contact">Contact</NavLink>
-          <button className="cart">
+          <button className="nav__cart" onClick={handleCart}>
             <img
-              className="cart__img"
+              className="nav__cart__img"
               src="/images/cart-icon.png"
               alt="shopping cart"
             />

@@ -10,6 +10,7 @@ const initialState = {
   currentSneaker: null,
   isOpened: false,
   currentSneakerObject: {},
+  overlayIsOpen: false,
 };
 
 const reducer = (state, action) => {
@@ -19,6 +20,7 @@ const reducer = (state, action) => {
         ...state,
         isOpened: true,
         currentSneakerObject: action.payload,
+        overlayIsOpen: true,
       };
     case "mouseEnter":
       return {
@@ -61,6 +63,7 @@ function BestSeller() {
     <section className="best__seller">
       {state.isOpened && (
         <ProductModal
+          state={state}
           currentSneakerObject={state.currentSneakerObject}
           dispatch={dispatch}
         />
