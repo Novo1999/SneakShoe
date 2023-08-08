@@ -1,6 +1,16 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import "./ProductModal.scss";
-function ProductModal({ dispatch, currentSneakerObject, state }) {
+function ProductModal({ dispatch, state }) {
+  const handleAddToCart = (newProduct) => {
+    dispatch({
+      type: "addToCart",
+      payload: state.cartProducts
+        ? [...state.cartProducts, newProduct]
+        : [newProduct],
+    });
+  };
+
   return (
     <>
       {state.overlayIsOpen && <div className="modal__bg"></div>}
@@ -11,27 +21,27 @@ function ProductModal({ dispatch, currentSneakerObject, state }) {
           className="modal__close-btn"
         ></button>
         <div className="modal__container-img">
-          <img src={currentSneakerObject.img} alt="Sneaker image" />
+          <img src={state.currentSneakerObject.img} alt="Sneaker image" />
         </div>
         <div className="modal__container-details">
           <div className="modal__details-section">
             <h2 className="modal__container-title">
-              {currentSneakerObject.name}
+              {state.currentSneakerObject.name}
             </h2>
             <p className="modal__container-price">
-              {currentSneakerObject.discountedPrice && (
+              {state.currentSneakerObject.discountedPrice && (
                 <span className="modal__container-price-discount">
-                  {currentSneakerObject.discountedPrice}
+                  {state.currentSneakerObject.discountedPrice}
                 </span>
               )}
               <span
                 className={
-                  currentSneakerObject.discountedPrice
+                  state.currentSneakerObject.discountedPrice
                     ? "line-through"
                     : "sneaker-price"
                 }
               >
-                {currentSneakerObject.price}
+                {state.currentSneakerObject.price}
               </span>
               & Free Shipping
             </p>
@@ -43,8 +53,8 @@ function ProductModal({ dispatch, currentSneakerObject, state }) {
             </p>
             <div className="modal__container-category">
               <p>Categories: </p>
-              <button>{currentSneakerObject.category}</button>
-              <button>{currentSneakerObject.altCategory}</button>
+              <button>{state.currentSneakerObject.category}</button>
+              <button>{state.currentSneakerObject.altCategory}</button>
             </div>
             <div className="modal__container-checkout">
               <p>Guaranteed Safe Checkout</p>
@@ -61,7 +71,11 @@ function ProductModal({ dispatch, currentSneakerObject, state }) {
                 <button>+</button>
               </div>
               <div className="modal__container-cart-btn">
-                <button>add to cart</button>
+                <button
+                  onClick={() => handleAddToCart(state.currentSneakerObject)}
+                >
+                  add to cart
+                </button>
               </div>
             </div>
           </div>

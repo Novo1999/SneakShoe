@@ -1,11 +1,13 @@
 import "./Cart.scss";
-function Cart({ overlayIsOpen, onSetOverlayIsOpen, onSetHideScrollbar }) {
+function Cart({ state, dispatch }) {
   function handleCartClose() {
-    onSetOverlayIsOpen(false);
-    onSetHideScrollbar(false);
+    dispatch({ type: "overlayOpen", payload: false });
+    dispatch({ type: "hideScrollbar", payload: false });
   }
   return (
-    <div className={`cart ${overlayIsOpen ? "enable-cart" : "disable-cart"}`}>
+    <div
+      className={`cart ${state.overlayIsOpen ? "enable-cart" : "disable-cart"}`}
+    >
       <header>
         <h2>Shopping Cart</h2>
         <button onClick={handleCartClose} className="cart__close-btn"></button>

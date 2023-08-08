@@ -11,6 +11,7 @@ const initialState = {
   isOpened: false,
   currentSneakerObject: {},
   overlayIsOpen: false,
+  cartProducts: [],
 };
 
 const reducer = (state, action) => {
@@ -34,7 +35,16 @@ const reducer = (state, action) => {
       };
     case "closeModal":
       return {
-        initialState,
+        ...state,
+        currentSneaker: null,
+        isOpened: false,
+        currentSneakerObject: {},
+        overlayIsOpen: false,
+      };
+    case "addToCart":
+      return {
+        ...state,
+        cartProducts: action.payload,
       };
 
     default:
@@ -53,6 +63,7 @@ function BestSeller() {
   function handleMouseLeave() {
     dispatch({ type: "mouseLeave" });
   }
+
   useEffect(() => {
     const html = document.documentElement;
     if (state.isOpened) html.classList.add("hide-scrollbar");
@@ -61,13 +72,7 @@ function BestSeller() {
 
   return (
     <section className="best__seller">
-      {state.isOpened && (
-        <ProductModal
-          state={state}
-          currentSneakerObject={state.currentSneakerObject}
-          dispatch={dispatch}
-        />
-      )}
+      {state.isOpened && <ProductModal state={state} dispatch={dispatch} />}
       <div className="best__seller-heading">
         <h1>Our Best Seller</h1>
       </div>

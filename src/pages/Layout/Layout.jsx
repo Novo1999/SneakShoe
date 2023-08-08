@@ -1,30 +1,43 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import "./Layout.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import Cart from "./Cart";
 
-function Layout() {
-  const [overlayIsOpen, setOverlayIsOpen] = useState(false);
-  const [hideScrollbar, setHideScrollbar] = useState(false);
+const initialState = {
+  overlayIsOpen: false,
+  hideScrollbar: false,
+  cartProducts: [],
+};
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "overlayOpen": {
+      return { ...state, overlayIsOpen: action.payload };
+    }
+    case "hideScrollbar": {
+      return { ...state, hideScrollbar: action.payload };
+    }
+    default:
+      throw new Error("Unknown Action");
+  }
+};
+
+function Layout() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const html = document.documentElement;
-    if (hideScrollbar) html.classList.add("hide-scrollbar");
+    if (state.hideScrollbar) html.classList.add("hide-scrollbar");
     else html.classList.remove("hide-scrollbar");
-  }, [hideScrollbar]);
+  }, [state.hideScrollbar]);
 
   function handleCart() {
-    setOverlayIsOpen(true);
-    setHideScrollbar(true);
+    dispatch({ type: "overlayOpen", payload: true });
+    dispatch({ type: "hideScrollbar", payload: true });
   }
   return (
     <>
-      {overlayIsOpen && <div className="modal__bg"></div>}
-      <Cart
-        overlayIsOpen={overlayIsOpen}
-        onSetOverlayIsOpen={setOverlayIsOpen}
-        onSetHideScrollbar={setHideScrollbar}
-      />
+      {state.overlayIsOpen && <div className="modal__bg"></div>}
+      <Cart dispatch={dispatch} state={state} />
       <nav className="navigation">
         <div className="nav__left">
           <NavLink to="/">

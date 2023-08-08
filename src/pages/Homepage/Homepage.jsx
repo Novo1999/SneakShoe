@@ -13,7 +13,7 @@ import {
   CustomerReview,
   Footer,
 } from "../../components";
-import Cart from "../Layout/Cart";
+
 function Homepage() {
   return (
     <main className="homepage">
