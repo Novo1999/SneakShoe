@@ -3,7 +3,6 @@ import { CartContext } from "./Layout";
 import { useContext, useEffect, useState } from "react";
 function Cart({ state, dispatch }) {
   const { cartProducts } = useContext(CartContext);
-  console.log(cartProducts);
   function handleCartClose() {
     dispatch({ type: "overlayOpen", payload: false });
     dispatch({ type: "hideScrollbar", payload: false });

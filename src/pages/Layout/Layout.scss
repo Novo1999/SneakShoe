@@ -22,6 +22,14 @@
     color: var(--clr-primary-2);
   }
 }
+.nav-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  transition: 0.5s all ease-in;
+  background-color: var(--clr-primary);
+  z-index: 999;
+}
 .nav__logo {
   width: 9rem;
   transform: rotate(-25deg);

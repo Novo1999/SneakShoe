@@ -4,26 +4,44 @@ import { NavLink, Outlet } from "react-router-dom";
 import Cart from "./Cart";
 import { CTA, Contact, Footer } from "../../components";
 export const CartContext = createContext();
+
 const initialState = {
   overlayIsOpen: false,
   hideScrollbar: false,
   cartProducts: [],
+  isSticky: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "overlayOpen": {
+    case "overlayOpen":
       return { ...state, overlayIsOpen: action.payload };
-    }
-    case "hideScrollbar": {
+
+    case "hideScrollbar":
       return { ...state, hideScrollbar: action.payload };
-    }
+
+    case "stickyNav":
+      return { ...state, isSticky: action.payload };
     default:
       throw new Error("Unknown Action");
   }
 };
 
 function Layout() {
+  function handleScroll() {
+    if (window.scrollY > 700 && window.scrollY < 6200) {
+      dispatch({ type: "stickyNav", payload: true });
+      console.log(window.scrollY);
+    } else dispatch({ type: "stickyNav", payload: false });
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const [cartProducts, setCartProducts] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
@@ -47,7 +65,7 @@ function Layout() {
       >
         {state.overlayIsOpen && <div className="modal__bg"></div>}
         <Cart dispatch={dispatch} state={state} />
-        <nav className="navigation">
+        <nav className={`navigation ${state.isSticky ? "nav-sticky" : ""}`}>
           <div className="nav__left">
             <NavLink to="/">
               <img

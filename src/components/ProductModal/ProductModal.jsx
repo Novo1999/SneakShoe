@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./ProductModal.scss";
 function ProductModal({ dispatch, state, cartProducts, onSetCartProducts }) {
   const [quantity, setQuantity] = useState(1);
