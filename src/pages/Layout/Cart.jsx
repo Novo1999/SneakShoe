@@ -6,6 +6,7 @@ function Cart({ state, dispatch }) {
   function handleCartClose() {
     dispatch({ type: "overlayOpen", payload: false });
     dispatch({ type: "hideScrollbar", payload: false });
+    dispatch({ type: "stickyNav", payload: true });
   }
   return (
     <div
@@ -21,6 +22,7 @@ function Cart({ state, dispatch }) {
           <CartItem
             key={i}
             index={i}
+            id={product.ID}
             name={product.name}
             image={product.img}
             price={product.price}
@@ -35,7 +37,15 @@ function Cart({ state, dispatch }) {
 
 export default Cart;
 
-function CartItem({ name, image, price, index, discountedPrice, quantity }) {
+function CartItem({
+  name,
+  image,
+  price,
+  id,
+  index,
+  discountedPrice,
+  quantity,
+}) {
   const { cartProducts, setCartProducts } = useContext(CartContext);
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
 

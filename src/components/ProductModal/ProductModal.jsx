@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./ProductModal.scss";
 function ProductModal({ dispatch, state, cartProducts, onSetCartProducts }) {
   const [quantity, setQuantity] = useState(1);
+
   const handleAddToCart = (newProduct) => {
     newProduct.quantity = quantity;
     onSetCartProducts(() =>

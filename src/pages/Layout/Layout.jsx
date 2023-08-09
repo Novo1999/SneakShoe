@@ -28,11 +28,15 @@ const reducer = (state, action) => {
 };
 
 function Layout() {
+  const [cartProducts, setCartProducts] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   function handleScroll() {
     if (window.scrollY > 700 && window.scrollY < 6200) {
       dispatch({ type: "stickyNav", payload: true });
-      console.log(window.scrollY);
-    } else dispatch({ type: "stickyNav", payload: false });
+    } else {
+      dispatch({ type: "stickyNav", payload: false });
+    }
   }
 
   useEffect(() => {
@@ -42,8 +46,6 @@ function Layout() {
     };
   }, []);
 
-  const [cartProducts, setCartProducts] = useState([]);
-  const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const html = document.documentElement;
     if (state.hideScrollbar) html.classList.add("hide-scrollbar");
@@ -53,6 +55,7 @@ function Layout() {
   function handleCart() {
     dispatch({ type: "overlayOpen", payload: true });
     dispatch({ type: "hideScrollbar", payload: true });
+    dispatch({ type: "stickyNav", payload: false });
   }
 
   return (

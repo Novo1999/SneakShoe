@@ -20,6 +20,7 @@ const reducer = (state, action) => {
         ...state,
         isOpened: true,
         currentSneakerObject: action.payload,
+        ID: action.id,
         overlayIsOpen: true,
       };
     case "mouseEnter":
@@ -40,11 +41,6 @@ const reducer = (state, action) => {
         currentSneakerObject: {},
         overlayIsOpen: false,
       };
-    // case "addToCart":
-    //   return {
-    //     ...state,
-    //     cart: action.payload,
-    //   };
     default:
       throw new Error("Unknown Action");
   }
@@ -53,9 +49,13 @@ const reducer = (state, action) => {
 function BestSeller() {
   const { cartProducts, setCartProducts } = useContext(CartContext);
   const [state, dispatch] = useReducer(reducer, initialState);
-  // console.log(cartProducts);
+  console.log(state.currentSneakerObject);
   function handleQuickView(item) {
-    dispatch({ type: "quickView", payload: item });
+    dispatch({
+      type: "quickView",
+      payload: item,
+      id: Math.floor(Math.random() * Date.now()).toString(16),
+    });
   }
   function handleMouseEnter(i) {
     dispatch({ type: "mouseEnter", payload: i });
