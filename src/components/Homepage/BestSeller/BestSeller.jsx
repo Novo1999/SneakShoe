@@ -1,8 +1,8 @@
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import ProductModal from "../../ProductModal/ProductModal";
-
+import { CartContext } from "../../../pages/Layout/Layout";
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];
 const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
 
@@ -11,7 +11,6 @@ const initialState = {
   isOpened: false,
   currentSneakerObject: {},
   overlayIsOpen: false,
-  cartProducts: [],
 };
 
 const reducer = (state, action) => {
@@ -41,19 +40,20 @@ const reducer = (state, action) => {
         currentSneakerObject: {},
         overlayIsOpen: false,
       };
-    case "addToCart":
-      return {
-        ...state,
-        cartProducts: action.payload,
-      };
-
+    // case "addToCart":
+    //   return {
+    //     ...state,
+    //     cart: action.payload,
+    //   };
     default:
-      throw Error("Unknown Action");
+      throw new Error("Unknown Action");
   }
 };
 
 function BestSeller() {
+  const { cartProducts, setCartProducts } = useContext(CartContext);
   const [state, dispatch] = useReducer(reducer, initialState);
+  // console.log(cartProducts);
   function handleQuickView(item) {
     dispatch({ type: "quickView", payload: item });
   }
@@ -72,7 +72,14 @@ function BestSeller() {
 
   return (
     <section className="best__seller">
-      {state.isOpened && <ProductModal state={state} dispatch={dispatch} />}
+      {state.isOpened && (
+        <ProductModal
+          cartProducts={cartProducts}
+          onSetCartProducts={setCartProducts}
+          state={state}
+          dispatch={dispatch}
+        />
+      )}
       <div className="best__seller-heading">
         <h1>Our Best Seller</h1>
       </div>

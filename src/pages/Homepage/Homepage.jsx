@@ -6,12 +6,9 @@ import {
   HowShoes,
   BestSeller,
   NewArrivals,
-  CTA,
-  Contact,
   Gender,
   Recycle,
   CustomerReview,
-  Footer,
 } from "../../components";
 
 function Homepage() {
@@ -25,9 +22,6 @@ function Homepage() {
       <Gender />
       <Recycle />
       <CustomerReview />
-      <CTA />
-      <Contact />
-      <Footer />
       {/* <Cart /> */}
       {/* <NewArrivals /> */}
     </main>

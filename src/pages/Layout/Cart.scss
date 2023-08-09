@@ -12,6 +12,8 @@
   padding: 4rem;
   height: 100vh;
   background-color: var(--clr-primary);
+  overflow-y: scroll;
+  overflow-x: hidden;
   hr {
     margin-bottom: 3rem;
     width: 105rem;

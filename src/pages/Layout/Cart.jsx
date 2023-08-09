@@ -1,5 +1,9 @@
 import "./Cart.scss";
+import { CartContext } from "./Layout";
+import { useContext, useEffect, useState } from "react";
 function Cart({ state, dispatch }) {
+  const { cartProducts } = useContext(CartContext);
+  console.log(cartProducts);
   function handleCartClose() {
     dispatch({ type: "overlayOpen", payload: false });
     dispatch({ type: "hideScrollbar", payload: false });
@@ -13,25 +17,74 @@ function Cart({ state, dispatch }) {
         <button onClick={handleCartClose} className="cart__close-btn"></button>
       </header>
       <hr />
-      <div className="cart__product">
-        <div className="cart__product-left">
-          <img src="/images/Shoe for sale/Sneaker-1.jpg" alt="cart shoe" />
-          <div className="cart__product-left-right">
-            <p>Mens Classic Shoe</p>
-            <div className="cart__container-buttons">
-              <button>-</button>
-              <p>1</p>
-              <button>+</button>
-            </div>
-          </div>
-        </div>
-        <div className="cart__product-right">
-          <button className="cart__product-delete-btn"></button>
-          <span>$79.90</span>
-        </div>
-      </div>
+      {cartProducts.map((product, i) => {
+        return (
+          <CartItem
+            key={i}
+            index={i}
+            name={product.name}
+            image={product.img}
+            price={product.price}
+            quantity={product.quantity}
+            discountedPrice={product.discountedPrice}
+          />
+        );
+      })}
     </div>
   );
 }
 
 export default Cart;
+
+function CartItem({ name, image, price, index, discountedPrice, quantity }) {
+  const { cartProducts, setCartProducts } = useContext(CartContext);
+  const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
+
+  function handleDeleteItem() {
+    const updatedCart = cartProducts.filter((_, i) => {
+      return i !== index;
+    });
+    setCartProducts(updatedCart);
+  }
+
+  return (
+    <div className="cart__product">
+      <div className="cart__product-left">
+        <img src={image} alt="cart shoe" />
+        <div className="cart__product-left-right">
+          <p>{name}</p>
+          <div className="cart__container-buttons">
+            <button
+              onClick={() => {
+                if (updatedQuantity === 1) return;
+                setUpdatedQuantity((q) => q - 1);
+              }}
+            >
+              -
+            </button>
+            <p>{updatedQuantity}</p>
+            <button
+              onClick={() => {
+                setUpdatedQuantity((q) => q + 1);
+              }}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="cart__product-right">
+        <button
+          onClick={handleDeleteItem}
+          className="cart__product-delete-btn"
+        ></button>
+        <span>
+          $
+          {discountedPrice
+            ? (discountedPrice * updatedQuantity).toFixed(2)
+            : (price * updatedQuantity).toFixed(2)}
+        </span>
+      </div>
+    </div>
+  );
+}

@@ -1,16 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import "./ProductModal.scss";
-function ProductModal({ dispatch, state }) {
+function ProductModal({ dispatch, state, cartProducts, onSetCartProducts }) {
+  const [quantity, setQuantity] = useState(1);
   const handleAddToCart = (newProduct) => {
-    dispatch({
-      type: "addToCart",
-      payload: state.cartProducts
-        ? [...state.cartProducts, newProduct]
-        : [newProduct],
-    });
+    newProduct.quantity = quantity;
+    onSetCartProducts(() =>
+      cartProducts ? [...cartProducts, newProduct] : [newProduct]
+    );
   };
-
   return (
     <>
       {state.overlayIsOpen && <div className="modal__bg"></div>}
@@ -66,9 +64,22 @@ function ProductModal({ dispatch, state }) {
           <div className="modal-cart-section">
             <div className="modal__container-cart">
               <div className="modal__container-cart-buttons">
-                <button>-</button>
-                <p>1</p>
-                <button>+</button>
+                <button
+                  onClick={() => {
+                    if (quantity === 1) return;
+                    setQuantity((q) => q - 1);
+                  }}
+                >
+                  -
+                </button>
+                <p>{quantity}</p>
+                <button
+                  onClick={() => {
+                    setQuantity((q) => q + 1);
+                  }}
+                >
+                  +
+                </button>
               </div>
               <div className="modal__container-cart-btn">
                 <button

@@ -1,8 +1,9 @@
-import { useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import "./Layout.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import Cart from "./Cart";
-
+import { CTA, Contact, Footer } from "../../components";
+export const CartContext = createContext();
 const initialState = {
   overlayIsOpen: false,
   hideScrollbar: false,
@@ -23,6 +24,7 @@ const reducer = (state, action) => {
 };
 
 function Layout() {
+  const [cartProducts, setCartProducts] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const html = document.documentElement;
@@ -34,40 +36,53 @@ function Layout() {
     dispatch({ type: "overlayOpen", payload: true });
     dispatch({ type: "hideScrollbar", payload: true });
   }
+
   return (
     <>
-      {state.overlayIsOpen && <div className="modal__bg"></div>}
-      <Cart dispatch={dispatch} state={state} />
-      <nav className="navigation">
-        <div className="nav__left">
-          <NavLink to="/">
-            <img
-              className="nav__logo"
-              src="/images/shoe-logo.png"
-              alt="shoe on fire"
-            />
-            <span className="nav__logo-text">SneakShoe</span>
-          </NavLink>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/men">Men</NavLink>
-          <NavLink to="/women">Women</NavLink>
-          <NavLink to="/collection">Collection</NavLink>
-          <NavLink to="/lookbook">Lookbook</NavLink>
-          <NavLink to="/sale">Sale</NavLink>
+      <CartContext.Provider
+        value={{
+          cartProducts,
+          setCartProducts,
+        }}
+      >
+        {state.overlayIsOpen && <div className="modal__bg"></div>}
+        <Cart dispatch={dispatch} state={state} />
+        <nav className="navigation">
+          <div className="nav__left">
+            <NavLink to="/">
+              <img
+                className="nav__logo"
+                src="/images/shoe-logo.png"
+                alt="shoe on fire"
+              />
+              <span className="nav__logo-text">SneakShoe</span>
+            </NavLink>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/men">Men</NavLink>
+            <NavLink to="/women">Women</NavLink>
+            <NavLink to="/collection">Collection</NavLink>
+            <NavLink to="/lookbook">Lookbook</NavLink>
+            <NavLink to="/sale">Sale</NavLink>
+          </div>
+          <div className="nav__right">
+            <NavLink to="/our-story">Our Story</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+            <button className="nav__cart" onClick={handleCart}>
+              <img
+                className="nav__cart__img"
+                src="/images/cart-icon.png"
+                alt="shopping cart"
+              />
+            </button>
+          </div>
+        </nav>
+        <Outlet />
+        <div className="page__bottom">
+          <CTA />
+          <Contact />
+          <Footer />
         </div>
-        <div className="nav__right">
-          <NavLink to="/our-story">Our Story</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-          <button className="nav__cart" onClick={handleCart}>
-            <img
-              className="nav__cart__img"
-              src="/images/cart-icon.png"
-              alt="shopping cart"
-            />
-          </button>
-        </div>
-      </nav>
-      <Outlet />
+      </CartContext.Provider>
     </>
   );
 }
