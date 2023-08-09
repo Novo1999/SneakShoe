@@ -50,6 +50,7 @@ function CartItem({
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
 
   function handleDeleteItem() {
+    // FIXME
     const updatedCart = cartProducts.filter((_, i) => {
       return i !== index;
     });
