@@ -17,12 +17,11 @@ function Cart({ state, dispatch }) {
         <button onClick={handleCartClose} className="cart__close-btn"></button>
       </header>
       <hr />
-      {cartProducts.map((product, i) => {
+      {cartProducts.map((product) => {
         return (
           <CartItem
-            key={i}
-            index={i}
-            id={product.ID}
+            key={product.id}
+            id={product.id}
             name={product.name}
             image={product.img}
             price={product.price}
@@ -37,22 +36,18 @@ function Cart({ state, dispatch }) {
 
 export default Cart;
 
-function CartItem({
-  name,
-  image,
-  price,
-  id,
-  index,
-  discountedPrice,
-  quantity,
-}) {
+function CartItem({ name, image, price, id, discountedPrice, quantity }) {
   const { cartProducts, setCartProducts } = useContext(CartContext);
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
 
+  useEffect(() => {
+    setUpdatedQuantity(quantity);
+  }, [quantity]);
+
   function handleDeleteItem() {
     // FIXME
-    const updatedCart = cartProducts.filter((_, i) => {
-      return i !== index;
+    const updatedCart = cartProducts.filter((item) => {
+      return item.id !== id;
     });
     setCartProducts(updatedCart);
   }

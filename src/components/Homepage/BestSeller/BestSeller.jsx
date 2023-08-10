@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer, useRef } from "react";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import ProductModal from "../../ProductModal/ProductModal";
@@ -20,7 +20,6 @@ const reducer = (state, action) => {
         ...state,
         isOpened: true,
         currentSneakerObject: action.payload,
-        ID: action.id,
         overlayIsOpen: true,
       };
     case "mouseEnter":
@@ -47,14 +46,17 @@ const reducer = (state, action) => {
 };
 
 function BestSeller() {
-  const { cartProducts, setCartProducts } = useContext(CartContext);
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state.currentSneakerObject);
+  const { isAddedToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    if (isAddedToCart) dispatch({ type: "closeModal" });
+  }, [isAddedToCart]);
+
   function handleQuickView(item) {
     dispatch({
       type: "quickView",
       payload: item,
-      id: Math.floor(Math.random() * Date.now()).toString(16),
     });
   }
   function handleMouseEnter(i) {
@@ -72,14 +74,7 @@ function BestSeller() {
 
   return (
     <section className="best__seller">
-      {state.isOpened && (
-        <ProductModal
-          cartProducts={cartProducts}
-          onSetCartProducts={setCartProducts}
-          state={state}
-          dispatch={dispatch}
-        />
-      )}
+      {state.isOpened && <ProductModal state={state} dispatch={dispatch} />}
       <div className="best__seller-heading">
         <h1>Our Best Seller</h1>
       </div>

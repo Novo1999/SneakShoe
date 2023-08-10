@@ -3,6 +3,7 @@ import "./Layout.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import Cart from "./Cart";
 import { CTA, Contact, Footer } from "../../components";
+import ProductAdded from "./ProductAdded";
 export const CartContext = createContext();
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   hideScrollbar: false,
   cartProducts: [],
   isSticky: false,
+  isAddedToCart: false,
 };
 
 const reducer = (state, action) => {
@@ -22,6 +24,10 @@ const reducer = (state, action) => {
 
     case "stickyNav":
       return { ...state, isSticky: action.payload };
+
+    case "isAddedToCart":
+      return { ...state, isAddedToCart: action.payload };
+
     default:
       throw new Error("Unknown Action");
   }
@@ -29,6 +35,7 @@ const reducer = (state, action) => {
 
 function Layout() {
   const [cartProducts, setCartProducts] = useState([]);
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function handleScroll() {
@@ -64,8 +71,11 @@ function Layout() {
         value={{
           cartProducts,
           setCartProducts,
+          isAddedToCart: state.isAddedToCart,
+          cartDispatch: dispatch,
         }}
       >
+        <ProductAdded />
         {state.overlayIsOpen && <div className="modal__bg"></div>}
         <Cart dispatch={dispatch} state={state} />
         <nav className={`navigation ${state.isSticky ? "nav-sticky" : ""}`}>

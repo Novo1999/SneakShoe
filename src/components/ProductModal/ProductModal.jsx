@@ -1,15 +1,43 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./ProductModal.scss";
-function ProductModal({ dispatch, state, cartProducts, onSetCartProducts }) {
+
+import { CartContext } from "../../pages/Layout/Layout";
+
+function ProductModal({ dispatch, state }) {
   const [quantity, setQuantity] = useState(1);
+  const { cartProducts, setCartProducts, cartDispatch } =
+    useContext(CartContext);
 
   const handleAddToCart = (newProduct) => {
-    newProduct.quantity = quantity;
-    onSetCartProducts(() =>
-      cartProducts ? [...cartProducts, newProduct] : [newProduct]
+    const updatedCartProducts = cartProducts.map((product) => {
+      if (product.id === newProduct.id) {
+        return {
+          ...product,
+          quantity: product.quantity + quantity,
+        };
+      }
+      return product;
+    });
+    setCartProducts(updatedCartProducts);
+    const existingProduct = cartProducts.find(
+      (product) => product.id === newProduct.id
     );
+    if (existingProduct) {
+      setCartProducts(updatedCartProducts);
+    } else {
+      newProduct.quantity = quantity;
+      setCartProducts((prevCartProducts) =>
+        prevCartProducts ? [...prevCartProducts, newProduct] : [newProduct]
+      );
+    }
+
+    cartDispatch({ type: "isAddedToCart", payload: true });
   };
+  setTimeout(() => {
+    cartDispatch({ type: "isAddedToCart", payload: false });
+  }, 2000);
+
   return (
     <>
       {state.overlayIsOpen && <div className="modal__bg"></div>}
