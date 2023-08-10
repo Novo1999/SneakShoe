@@ -12,6 +12,7 @@ const initialState = {
   cartProducts: [],
   isSticky: false,
   isAddedToCart: false,
+  cartUpdate: false,
 };
 
 const reducer = (state, action) => {
@@ -27,6 +28,8 @@ const reducer = (state, action) => {
 
     case "isAddedToCart":
       return { ...state, isAddedToCart: action.payload };
+    case "cartUpdate":
+      return { ...state, cartUpdate: action.payload };
 
     default:
       throw new Error("Unknown Action");
@@ -35,7 +38,6 @@ const reducer = (state, action) => {
 
 function Layout() {
   const [cartProducts, setCartProducts] = useState([]);
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function handleScroll() {
@@ -73,6 +75,7 @@ function Layout() {
           setCartProducts,
           isAddedToCart: state.isAddedToCart,
           cartDispatch: dispatch,
+          cartState: state,
         }}
       >
         <ProductAdded />

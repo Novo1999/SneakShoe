@@ -1,11 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./ProductAdded.scss";
 import { CartContext } from "./Layout";
 function ProductAdded() {
-  const { isAddedToCart, cartProducts } = useContext(CartContext);
-  useEffect(() => {
-    console.log(cartProducts.slice(-1).at(0)?.name);
-  }, [cartProducts]);
+  const { isAddedToCart, cartProducts, cartState } = useContext(CartContext);
 
   return (
     <div
@@ -13,7 +10,10 @@ function ProductAdded() {
         isAddedToCart ? "product-added-enable" : ""
       }`}
     >
-      <p>{cartProducts.slice(-1).at(0)?.name} Added to Cart</p>
+      {isAddedToCart && !cartState.cartUpdate && (
+        <p>{cartProducts.slice(-1).at(0)?.name} Added to Cart</p>
+      )}
+      {isAddedToCart && cartState.cartUpdate && <p>Cart Updated</p>}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./ProductModal.scss";
-
 import { CartContext } from "../../pages/Layout/Layout";
 
 function ProductModal({ dispatch, state }) {
@@ -12,6 +11,7 @@ function ProductModal({ dispatch, state }) {
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
       if (product.id === newProduct.id) {
+        cartDispatch({ type: "cartUpdate", payload: true });
         return {
           ...product,
           quantity: product.quantity + quantity,
@@ -36,6 +36,10 @@ function ProductModal({ dispatch, state }) {
   };
   setTimeout(() => {
     cartDispatch({ type: "isAddedToCart", payload: false });
+  }, 2000);
+
+  setTimeout(() => {
+    cartDispatch({ type: "cartUpdate", payload: false });
   }, 2000);
 
   return (
