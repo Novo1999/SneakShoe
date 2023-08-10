@@ -47,17 +47,19 @@ const reducer = (state, action) => {
 
 function BestSeller() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { isAddedToCart } = useContext(CartContext);
+  const { isAddedToCart, cartDispatch } = useContext(CartContext);
 
   useEffect(() => {
     if (isAddedToCart) dispatch({ type: "closeModal" });
-  }, [isAddedToCart]);
+    cartDispatch({ type: "stickyNav", payload: true });
+  }, [isAddedToCart, cartDispatch]);
 
   function handleQuickView(item) {
     dispatch({
       type: "quickView",
       payload: item,
     });
+    cartDispatch({ type: "stickyNav", payload: false });
   }
   function handleMouseEnter(i) {
     dispatch({ type: "mouseEnter", payload: i });

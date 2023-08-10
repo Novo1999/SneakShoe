@@ -76,6 +76,7 @@ function Layout() {
           isAddedToCart: state.isAddedToCart,
           cartDispatch: dispatch,
           cartState: state,
+          isSticky: state.isSticky,
         }}
       >
         <ProductAdded />

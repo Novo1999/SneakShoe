@@ -42,13 +42,18 @@ function ProductModal({ dispatch, state }) {
     cartDispatch({ type: "cartUpdate", payload: false });
   }, 2000);
 
+  function handleCloseModal() {
+    dispatch({ type: "closeModal" });
+    cartDispatch({ type: "stickyNav", payload: true });
+  }
+
   return (
     <>
       {state.overlayIsOpen && <div className="modal__bg"></div>}
 
       <div className="modal__container">
         <button
-          onClick={() => dispatch({ type: "closeModal" })}
+          onClick={handleCloseModal}
           className="modal__close-btn"
         ></button>
         <div className="modal__container-img">
