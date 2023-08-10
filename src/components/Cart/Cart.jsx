@@ -1,6 +1,7 @@
 import "./Cart.scss";
-import { CartContext } from "./Layout";
+import { CartContext } from "../../pages/Layout/Layout";
 import { useContext, useEffect, useState } from "react";
+
 function Cart({ state, dispatch }) {
   const { cartProducts } = useContext(CartContext);
   function handleCartClose() {
@@ -38,6 +39,9 @@ export default Cart;
 
 function CartItem({ name, image, price, id, discountedPrice, quantity }) {
   const { cartProducts, setCartProducts } = useContext(CartContext);
+
+  // FIX Quantity BUG
+
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
 
   useEffect(() => {
@@ -45,7 +49,6 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
   }, [quantity]);
 
   function handleDeleteItem() {
-    // FIXME
     const updatedCart = cartProducts.filter((item) => {
       return item.id !== id;
     });

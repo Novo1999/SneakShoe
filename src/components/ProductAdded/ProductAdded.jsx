@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./ProductAdded.scss";
-import { CartContext } from "./Layout";
+import { CartContext } from "../../pages/Layout/Layout";
 function ProductAdded() {
   const { isAddedToCart, cartProducts, cartState } = useContext(CartContext);
 

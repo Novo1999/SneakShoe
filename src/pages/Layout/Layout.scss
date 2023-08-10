@@ -87,3 +87,19 @@
   flex-direction: column;
   align-items: center;
 }
+
+.nav__cart__quantity {
+  border-radius: 50%;
+  width: 2rem;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr-secondary-2);
+  color: var(--clr-primary-2);
+  font-family: var(--font-2);
+  font-weight: 700;
+  position: relative;
+  bottom: 1.8rem;
+  left: 2rem;
+}

@@ -11,3 +11,5 @@ export { default as HowShoes } from "./Homepage/HowShoes/HowShoes";
 export { default as CustomerReview } from "./Homepage/CustomerReview/CustomerReview";
 export { default as NewArrivals } from "./Homepage/NewArrivals/NewArrivals";
 export { default as Recycle } from "./Homepage/Recycle/Recycle";
+export { default as Cart } from "./Cart/Cart";
+export { default as ProductAdded } from "./ProductAdded/ProductAdded";

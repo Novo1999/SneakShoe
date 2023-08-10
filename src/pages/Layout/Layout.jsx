@@ -1,9 +1,8 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import "./Layout.scss";
 import { NavLink, Outlet } from "react-router-dom";
-import Cart from "./Cart";
+import { Cart, ProductAdded } from "../../components";
 import { CTA, Contact, Footer } from "../../components";
-import ProductAdded from "./ProductAdded";
 export const CartContext = createContext();
 
 const initialState = {
@@ -108,6 +107,7 @@ function Layout() {
                 src="/images/cart-icon.png"
                 alt="shopping cart"
               />
+              <p className="nav__cart__quantity">{cartProducts.length}</p>
             </button>
           </div>
         </nav>

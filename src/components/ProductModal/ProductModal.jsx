@@ -34,6 +34,7 @@ function ProductModal({ dispatch, state }) {
 
     cartDispatch({ type: "isAddedToCart", payload: true });
   };
+
   setTimeout(() => {
     cartDispatch({ type: "isAddedToCart", payload: false });
   }, 2000);
