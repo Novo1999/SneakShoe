@@ -3,6 +3,7 @@ import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import ProductModal from "../../ProductModal/ProductModal";
 import { useCart } from "../../../context/CartContext";
+
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];
 const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
 
@@ -11,6 +12,7 @@ const initialState = {
   isOpened: false,
   currentSneakerObject: {},
   overlayIsOpen: false,
+  isLoading: true,
 };
 
 const reducer = (state, action) => {
@@ -47,7 +49,7 @@ const reducer = (state, action) => {
 
 function BestSeller() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { isAddedToCart, cartDispatch } = useCart();
+  const { isAddedToCart, cartDispatch, cartState } = useCart();
 
   useEffect(() => {
     if (isAddedToCart) dispatch({ type: "closeModal" });
@@ -55,12 +57,25 @@ function BestSeller() {
   }, [isAddedToCart, cartDispatch]);
 
   function handleQuickView(item) {
-    dispatch({
-      type: "quickView",
-      payload: item,
-    });
+    setTimeout(() => {
+      dispatch({
+        type: "quickView",
+        payload: item,
+      });
+      cartDispatch({
+        type: "openModal",
+        payload: true,
+      });
+    }, 600);
+    cartDispatch({ type: "isLoading", payload: true });
     cartDispatch({ type: "stickyNav", payload: false });
   }
+
+  useEffect(() => {
+    if (cartState.modalOpen)
+      cartDispatch({ type: "isLoading", payload: false });
+  }, [cartDispatch, cartState.modalOpen]);
+
   function handleMouseEnter(i) {
     dispatch({ type: "mouseEnter", payload: i });
   }
@@ -76,7 +91,9 @@ function BestSeller() {
 
   return (
     <section className="best__seller">
-      {state.isOpened && <ProductModal state={state} dispatch={dispatch} />}
+      {state.isOpened && state.isLoading && (
+        <ProductModal state={state} dispatch={dispatch} />
+      )}
       <div className="best__seller-heading">
         <h1>Our Best Seller</h1>
       </div>

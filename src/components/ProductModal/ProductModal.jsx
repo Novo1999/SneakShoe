@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProductModal.scss";
 import { useCart } from "../../context/CartContext";
 
 function ProductModal({ dispatch, state }) {
   const [quantity, setQuantity] = useState(1);
-  const { cartProducts, setCartProducts, cartDispatch } = useCart();
+  const { cartProducts, setCartProducts, cartDispatch, cartState } = useCart();
 
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
@@ -34,6 +34,13 @@ function ProductModal({ dispatch, state }) {
     cartDispatch({ type: "isAddedToCart", payload: true });
   };
 
+  useEffect(() => {
+    if (cartState.isAddedToCart) {
+      cartDispatch({ type: "isLoading", isLoading: false });
+      cartDispatch({ type: "openModal", isLoading: false });
+    }
+  });
+
   setTimeout(() => {
     cartDispatch({ type: "isAddedToCart", payload: false });
   }, 2000);
@@ -45,12 +52,14 @@ function ProductModal({ dispatch, state }) {
   function handleCloseModal() {
     dispatch({ type: "closeModal" });
     cartDispatch({ type: "stickyNav", payload: true });
+    cartDispatch({
+      type: "openModal",
+      payload: false,
+    });
   }
 
   return (
     <>
-      {state.overlayIsOpen && <div className="modal__bg"></div>}
-
       <div className="modal__container">
         <button
           onClick={handleCloseModal}
@@ -135,3 +144,9 @@ function ProductModal({ dispatch, state }) {
 }
 
 export default ProductModal;
+
+/*
+isLoading = true => Show Spinner
+ModalOpens = true => isLoading = false => Spinner Disappears
+CloseModal => ModalOpens = false
+ */

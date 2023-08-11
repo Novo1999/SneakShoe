@@ -15,24 +15,26 @@ const initialState = {
   isSticky: false,
   isAddedToCart: false,
   cartUpdate: false,
+  isLoading: false,
+  modalOpen: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "overlayOpen":
       return { ...state, overlayIsOpen: action.payload };
-
     case "hideScrollbar":
       return { ...state, hideScrollbar: action.payload };
-
     case "stickyNav":
       return { ...state, isSticky: action.payload };
-
     case "isAddedToCart":
       return { ...state, isAddedToCart: action.payload };
     case "cartUpdate":
       return { ...state, cartUpdate: action.payload };
-
+    case "isLoading":
+      return { ...state, isLoading: action.payload };
+    case "openModal":
+      return { ...state, modalOpen: action.payload };
     default:
       throw new Error("Unknown Action");
   }
@@ -41,11 +43,14 @@ const reducer = (state, action) => {
 function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
+
   function handleCart() {
     dispatch({ type: "overlayOpen", payload: true });
     dispatch({ type: "hideScrollbar", payload: true });
     dispatch({ type: "stickyNav", payload: false });
   }
+
+  // Making the Navbar Sticky on Scroll
   function handleScroll() {
     if (window.scrollY > 700 && window.scrollY < 6200) {
       dispatch({ type: "stickyNav", payload: true });
@@ -53,6 +58,8 @@ function CartProvider({ children }) {
       dispatch({ type: "stickyNav", payload: false });
     }
   }
+
+  // Hiding the Scrollbar
   useEffect(() => {
     const html = document.documentElement;
     if (state.hideScrollbar) html.classList.add("hide-scrollbar");
@@ -85,8 +92,8 @@ function CartProvider({ children }) {
 
 function useCart() {
   const context = useContext(CartContext);
-  //   if (context === undefined)
-  //     throw new Error("CartContext was used outside the CartProvider");
+  if (context === undefined)
+    throw new Error("CartContext was used outside the CartProvider");
   return context;
 }
 

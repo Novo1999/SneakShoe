@@ -41,9 +41,30 @@ export default Cart;
 function CartItem({ name, image, price, id, discountedPrice, quantity }) {
   const { cartProducts, setCartProducts } = useCart();
 
-  // FIX Quantity BUG
-
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
+
+  function handleIncreaseQuantity() {
+    setUpdatedQuantity((q) => q + 1);
+  }
+
+  function handleDecreaseQuantity() {
+    if (updatedQuantity === 1) return;
+    setUpdatedQuantity((q) => q - 1);
+  }
+
+  useEffect(() => {
+    const updatedCartProducts = cartProducts.map((product) => {
+      if (product.id === id) {
+        return {
+          ...product,
+          quantity: updatedQuantity,
+        };
+      }
+      return product;
+    });
+
+    setCartProducts(updatedCartProducts);
+  }, [updatedQuantity, id, setCartProducts]);
 
   useEffect(() => {
     setUpdatedQuantity(quantity);
@@ -63,22 +84,9 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
         <div className="cart__product-left-right">
           <p>{name}</p>
           <div className="cart__container-buttons">
-            <button
-              onClick={() => {
-                if (updatedQuantity === 1) return;
-                setUpdatedQuantity((q) => q - 1);
-              }}
-            >
-              -
-            </button>
+            <button onClick={handleDecreaseQuantity}>-</button>
             <p>{updatedQuantity}</p>
-            <button
-              onClick={() => {
-                setUpdatedQuantity((q) => q + 1);
-              }}
-            >
-              +
-            </button>
+            <button onClick={handleIncreaseQuantity}>+</button>
           </div>
         </div>
       </div>

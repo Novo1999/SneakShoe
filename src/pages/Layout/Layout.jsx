@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { Cart, ProductAdded } from "../../components";
 import { CTA, Contact, Footer } from "../../components";
 import { CartProvider, useCart } from "../../context/CartContext";
+import Spinner from "../../components/Spinner/Spinner";
 
 function Layout() {
   return (
@@ -17,7 +18,22 @@ function LayoutContent() {
   return (
     <>
       <ProductAdded />
-      {cartState.overlayIsOpen && <div className="modal__bg"></div>}
+
+      <div
+        className={`modal__bg ${
+          cartState.isLoading || cartState.modalOpen ? "modal__open" : ""
+        }`}
+      >
+        {cartState.isLoading && <Spinner />}
+      </div>
+
+      {cartState.overlayIsOpen && (
+        <div
+          className={`modal__bg ${
+            cartState.overlayIsOpen ? "modal__open" : ""
+          }`}
+        ></div>
+      )}
       <Cart dispatch={cartDispatch} state={cartState} />
       <nav className={`navigation ${cartState.isSticky ? "nav-sticky" : ""}`}>
         <div className="nav__left">
