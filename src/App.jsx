@@ -11,6 +11,7 @@ import {
   Contact,
 } from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Product from "./pages/Product/Product";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="men" element={<Men />} />
             <Route path="women" element={<Women />} />
             <Route path="collection" element={<Collection />} />
+            <Route path="product" element={<Product />} />
             <Route path="lookbook" element={<Lookbook />} />
             <Route path="sale" element={<Sale />} />
             <Route path="our-story" element={<Story />} />

@@ -51,6 +51,7 @@ function CartProvider({ children }) {
   }
 
   // Making the Navbar Sticky on Scroll
+
   function handleScroll() {
     if (window.scrollY > 700 && window.scrollY < 6200) {
       dispatch({ type: "stickyNav", payload: true });
@@ -60,6 +61,7 @@ function CartProvider({ children }) {
   }
 
   // Hiding the Scrollbar
+
   useEffect(() => {
     const html = document.documentElement;
     if (state.hideScrollbar) html.classList.add("hide-scrollbar");

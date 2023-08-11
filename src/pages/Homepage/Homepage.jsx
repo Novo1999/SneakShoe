@@ -10,6 +10,7 @@ import {
   Recycle,
   CustomerReview,
 } from "../../components";
+import Product from "../Product/Product";
 
 function Homepage() {
   return (

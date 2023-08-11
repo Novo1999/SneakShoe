@@ -4,21 +4,28 @@ import { Cart, ProductAdded } from "../../components";
 import { CTA, Contact, Footer } from "../../components";
 import { CartProvider, useCart } from "../../context/CartContext";
 import Spinner from "../../components/Spinner/Spinner";
+import ProductModal from "../../components/ProductModal/ProductModal";
+import { ProductProvider, useProduct } from "../../context/ProductContext";
 
 function Layout() {
   return (
     <CartProvider>
-      <LayoutContent />
+      <ProductProvider>
+        <LayoutContent />
+      </ProductProvider>
     </CartProvider>
   );
 }
 
 function LayoutContent() {
+  const { productState, productDispatch } = useProduct();
   const { cartProducts, cartDispatch, cartState, handleCart } = useCart();
   return (
     <>
+      {productState.isOpened && productState.isLoading && (
+        <ProductModal state={productState} dispatch={productDispatch} />
+      )}
       <ProductAdded />
-
       <div
         className={`modal__bg ${
           cartState.isLoading || cartState.modalOpen ? "modal__open" : ""
