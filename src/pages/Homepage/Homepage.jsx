@@ -15,14 +15,15 @@ import Product from "../Product/Product";
 function Homepage() {
   return (
     <main className="homepage">
-      <Hero />
+      {/* <Hero />
       <Branding />
       <About />
       <HowShoes />
       <BestSeller />
       <Gender />
       <Recycle />
-      <CustomerReview />
+      <CustomerReview /> */}
+      <Product />
       {/* <Cart /> */}
       {/* <NewArrivals /> */}
     </main>

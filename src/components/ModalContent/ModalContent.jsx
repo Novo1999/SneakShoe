@@ -1,38 +1,41 @@
-function ModalContent({
-  quantity,
-  state,
-  onHandleCloseModal,
-  onSetQuantity,
-  onHandleAddToCart,
-}) {
+import { useProduct } from "../../context/ProductContext";
+
+function ModalContent() {
+  const {
+    productState,
+    quantity,
+    setQuantity,
+    handleAddToCart,
+    handleCloseModal,
+  } = useProduct();
   return (
     <div className="modal__container">
       <button
-        onClick={onHandleCloseModal}
-        className="modal__close-btn"
+        onClick={handleCloseModal}
+        className="modal__close-btn btn-disable"
       ></button>
       <div className="modal__container-img">
-        <img src={state.currentSneakerObject.img} alt="Sneaker image" />
+        <img src={productState.currentSneakerObject.img} alt="Sneaker image" />
       </div>
       <div className="modal__container-details">
         <div className="modal__details-section">
           <h2 className="modal__container-title">
-            {state.currentSneakerObject.name}
+            {productState.currentSneakerObject.name}
           </h2>
           <p className="modal__container-price">
-            {state.currentSneakerObject.discountedPrice && (
+            {productState.currentSneakerObject.discountedPrice && (
               <span className="modal__container-price-discount">
-                {state.currentSneakerObject.discountedPrice}
+                {productState.currentSneakerObject.discountedPrice}
               </span>
             )}
             <span
               className={
-                state.currentSneakerObject.discountedPrice
+                productState.currentSneakerObject.discountedPrice
                   ? "line-through"
                   : "sneaker-price"
               }
             >
-              {state.currentSneakerObject.price}
+              {productState.currentSneakerObject.price}
             </span>
             & Free Shipping
           </p>
@@ -44,8 +47,8 @@ function ModalContent({
           </p>
           <div className="modal__container-category">
             <p>Categories: </p>
-            <button>{state.currentSneakerObject.category}</button>
-            <button>{state.currentSneakerObject.altCategory}</button>
+            <button>{productState.currentSneakerObject.category}</button>
+            <button>{productState.currentSneakerObject.altCategory}</button>
           </div>
           <div className="modal__container-checkout">
             <p>Guaranteed Safe Checkout</p>
@@ -60,7 +63,7 @@ function ModalContent({
               <button
                 onClick={() => {
                   if (quantity === 1) return;
-                  onSetQuantity((q) => q - 1);
+                  setQuantity((q) => q - 1);
                 }}
               >
                 -
@@ -68,7 +71,7 @@ function ModalContent({
               <p>{quantity}</p>
               <button
                 onClick={() => {
-                  onSetQuantity((q) => q + 1);
+                  setQuantity((q) => q + 1);
                 }}
               >
                 +
@@ -76,7 +79,9 @@ function ModalContent({
             </div>
             <div className="modal__container-cart-btn">
               <button
-                onClick={() => onHandleAddToCart(state.currentSneakerObject)}
+                onClick={() =>
+                  handleAddToCart(productState.currentSneakerObject)
+                }
               >
                 add to cart
               </button>

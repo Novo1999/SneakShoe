@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { useCart } from "./CartContext";
 
 export const ProductContext = createContext();
@@ -44,9 +50,45 @@ const reducer = (state, action) => {
 };
 
 function ProductProvider({ children }) {
-  const { isAddedToCart, cartDispatch, cartState } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const {
+    isAddedToCart,
+    cartDispatch,
+    cartState,
+    cartProducts,
+    setCartProducts,
+  } = useCart();
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Adding product to cart
+  const handleAddToCart = (newProduct) => {
+    const updatedCartProducts = cartProducts.map((product) => {
+      if (product.id === newProduct.id) {
+        cartDispatch({ type: "cartUpdate", payload: true });
+        return {
+          ...product,
+          quantity: product.quantity + quantity,
+        };
+      }
+      return product;
+    });
+    setCartProducts(updatedCartProducts);
+    const existingProduct = cartProducts.find(
+      (product) => product.id === newProduct.id
+    );
+    if (existingProduct) {
+      setCartProducts(updatedCartProducts);
+    } else {
+      newProduct.quantity = quantity;
+      setCartProducts((prevCartProducts) =>
+        prevCartProducts ? [...prevCartProducts, newProduct] : [newProduct]
+      );
+    }
+
+    cartDispatch({ type: "isAddedToCart", payload: true });
+    setQuantity(1);
+  };
 
   useEffect(() => {
     if (isAddedToCart) dispatch({ type: "closeModal" });
@@ -87,6 +129,17 @@ function ProductProvider({ children }) {
     else html.classList.remove("hide-scrollbar");
   }, [state.isOpened]);
 
+  // Modal Close
+  function handleCloseModal() {
+    dispatch({ type: "closeModal" });
+    cartDispatch({ type: "stickyNav", payload: true });
+    cartDispatch({
+      type: "openModal",
+      payload: false,
+    });
+    setQuantity(1);
+  }
+
   return (
     <ProductContext.Provider
       value={{
@@ -95,6 +148,10 @@ function ProductProvider({ children }) {
         handleQuickView,
         productState: state,
         productDispatch: dispatch,
+        setQuantity,
+        quantity,
+        handleAddToCart,
+        handleCloseModal,
       }}
     >
       {children}
