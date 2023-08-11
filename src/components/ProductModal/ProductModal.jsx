@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "./ProductModal.scss";
-import { CartContext } from "../../pages/Layout/Layout";
+import { useCart } from "../../context/CartContext";
 
 function ProductModal({ dispatch, state }) {
   const [quantity, setQuantity] = useState(1);
-  const { cartProducts, setCartProducts, cartDispatch } =
-    useContext(CartContext);
+  const { cartProducts, setCartProducts, cartDispatch } = useCart();
 
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {

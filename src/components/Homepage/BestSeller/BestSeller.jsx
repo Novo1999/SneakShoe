@@ -1,8 +1,8 @@
-import { useContext, useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer } from "react";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import ProductModal from "../../ProductModal/ProductModal";
-import { CartContext } from "../../../pages/Layout/Layout";
+import { useCart } from "../../../context/CartContext";
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];
 const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
 
@@ -47,7 +47,7 @@ const reducer = (state, action) => {
 
 function BestSeller() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { isAddedToCart, cartDispatch } = useContext(CartContext);
+  const { isAddedToCart, cartDispatch } = useCart();
 
   useEffect(() => {
     if (isAddedToCart) dispatch({ type: "closeModal" });

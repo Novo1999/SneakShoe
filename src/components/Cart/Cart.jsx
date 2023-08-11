@@ -1,9 +1,10 @@
 import "./Cart.scss";
-import { CartContext } from "../../pages/Layout/Layout";
-import { useContext, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
+import { useCart } from "../../context/CartContext";
 
 function Cart({ state, dispatch }) {
-  const { cartProducts } = useContext(CartContext);
+  const { cartProducts } = useCart();
   function handleCartClose() {
     dispatch({ type: "overlayOpen", payload: false });
     dispatch({ type: "hideScrollbar", payload: false });
@@ -38,7 +39,7 @@ function Cart({ state, dispatch }) {
 export default Cart;
 
 function CartItem({ name, image, price, id, discountedPrice, quantity }) {
-  const { cartProducts, setCartProducts } = useContext(CartContext);
+  const { cartProducts, setCartProducts } = useCart();
 
   // FIX Quantity BUG
 
