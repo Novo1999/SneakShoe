@@ -22,6 +22,7 @@ function LayoutContent() {
   const { cartProducts, cartDispatch, cartState, handleCart } = useCart();
   return (
     <>
+      {/* Modal Logic */}
       {productState.isOpened && productState.isLoading && <ProductModal />}
       <ProductAdded />
       <div
@@ -32,6 +33,7 @@ function LayoutContent() {
         {cartState.isLoading && <Spinner />}
       </div>
 
+      {/* Cart openning logic */}
       {cartState.overlayIsOpen && (
         <div
           className={`modal__bg ${
@@ -40,6 +42,9 @@ function LayoutContent() {
         ></div>
       )}
       <Cart dispatch={cartDispatch} state={cartState} />
+
+      {/* Conditional sticky NAVBAR */}
+
       <nav className={`navigation ${cartState.isSticky ? "nav-sticky" : ""}`}>
         <div className="nav__left">
           <NavLink to="/">

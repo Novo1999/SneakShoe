@@ -5,10 +5,12 @@ import { useCart } from "../../context/CartContext";
 import ModalContent from "../ModalContent/ModalContent";
 import { useProduct } from "../../context/ProductContext";
 
-function ProductModal({ dispatch, state }) {
+function ProductModal({ dispatch }) {
   const [quantity, setQuantity] = useState(1);
   const { cartProducts, setCartProducts, cartDispatch, cartState } = useCart();
-  const { productState } = useProduct();
+  const { productState, productDispatch } = useProduct();
+
+  // Adding product to cart
 
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
@@ -37,6 +39,7 @@ function ProductModal({ dispatch, state }) {
     cartDispatch({ type: "isAddedToCart", payload: true });
   };
 
+  // Modal and loading
   useEffect(() => {
     if (cartState.isAddedToCart) {
       cartDispatch({ type: "isLoading", isLoading: false });
@@ -44,6 +47,7 @@ function ProductModal({ dispatch, state }) {
     }
   });
 
+  // Reset after product added popup
   setTimeout(() => {
     cartDispatch({ type: "isAddedToCart", payload: false });
   }, 2000);
@@ -53,7 +57,7 @@ function ProductModal({ dispatch, state }) {
   }, 2000);
 
   function handleCloseModal() {
-    dispatch({ type: "closeModal" });
+    productDispatch({ type: "closeModal" });
     cartDispatch({ type: "stickyNav", payload: true });
     cartDispatch({
       type: "openModal",

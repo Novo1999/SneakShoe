@@ -1,29 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import Star from "./Stars";
+import Stars from "./Stars";
 import "./CustomerReview.scss";
-
-const Reviews = [
-  {
-    name: "jullianne margolis",
-    review:
-      "“Felis semper duis massa scelerisque ac amet porttitor ac tellus venenatis aliquam varius mauris integer”",
-    rating: 4,
-    img: "/images/customer/customer-avatar-image-1.jpg",
-  },
-  {
-    name: "luis adrian",
-    review:
-      "“Non malesuada fringilla non varius odio in id pellentesque aliquam volutpat sapien faucibus ”",
-    rating: 5,
-    img: "/images/customer/customer-avatar-image-2.jpg",
-  },
-  {
-    name: "maria anna",
-    review: "“Tortor suspendisse tincidunt accumsan platea pellentesque hac.”",
-    rating: 5,
-    img: "/images/customer/customer-avatar-image-3.jpg",
-  },
-];
+import { reviews } from "./ReviewsData";
 
 function CustomerReview() {
   const [currentReview, setCurrentReview] = useState(0);
@@ -32,6 +10,7 @@ function CustomerReview() {
   const [applyClass2, setApplyClass2] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(false);
 
+  // Customer review button logic
   const handleCustomer = useCallback(
     (btn, classFunction) => {
       if (curClicked === btn) {
@@ -54,12 +33,12 @@ function CustomerReview() {
   }, [handleCustomer]);
 
   function handleLeft() {
-    if (currentReview === 0) setCurrentReview(Reviews.length);
+    if (currentReview === 0) setCurrentReview(reviews.length);
     setCurrentReview((cur) => cur - 1);
     setCurClicked("left");
   }
   function handleRight() {
-    if (currentReview === Reviews.length - 1) {
+    if (currentReview === reviews.length - 1) {
       setCurrentReview(0);
     } else setCurrentReview((cur) => cur + 1);
     setCurClicked("right");
@@ -76,13 +55,13 @@ function CustomerReview() {
               applyClass ? "slide-left" : ""
             } ${applyClass2 ? "slide-right" : ""}`}
           >
-            <Star quantity={Reviews[currentReview].rating} />
+            <Stars quantity={reviews[currentReview].rating} />
             <p className="customer__review-review">
-              {Reviews[currentReview].review}
+              {reviews[currentReview].review}
             </p>
             <div className="customer__review-customer">
-              <img src={Reviews[currentReview].img} alt="customer image" />
-              <p>{Reviews[currentReview].name}</p>
+              <img src={reviews[currentReview].img} alt="customer image" />
+              <p>{reviews[currentReview].name}</p>
             </div>
             <div id="customer__review-btns"></div>
           </div>

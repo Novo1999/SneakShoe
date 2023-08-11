@@ -43,6 +43,8 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
 
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
 
+  // Updating and keeping the quantity synced
+
   function handleIncreaseQuantity() {
     setUpdatedQuantity((q) => q + 1);
   }
@@ -70,6 +72,7 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
     setUpdatedQuantity(quantity);
   }, [quantity]);
 
+  // Delete cart item
   function handleDeleteItem() {
     const updatedCart = cartProducts.filter((item) => {
       return item.id !== id;

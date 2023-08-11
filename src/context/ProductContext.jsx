@@ -53,6 +53,7 @@ function ProductProvider({ children }) {
     cartDispatch({ type: "stickyNav", payload: true });
   }, [isAddedToCart, cartDispatch]);
 
+  //   Product quick view
   function handleQuickView(item) {
     setTimeout(() => {
       dispatch({
@@ -103,8 +104,8 @@ function ProductProvider({ children }) {
 
 function useProduct() {
   const context = useContext(ProductContext);
-  //   if (context === undefined)
-  //     throw new Error("ProductContext was used outside the ProductProvider");
+  if (context === undefined)
+    throw new Error("ProductContext was used outside the ProductProvider");
   return context;
 }
 

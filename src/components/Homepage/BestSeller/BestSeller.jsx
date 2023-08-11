@@ -2,6 +2,7 @@ import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import { useProduct } from "../../../context/ProductContext";
 
+// Random Items as Best Seller
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];
 const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
 
