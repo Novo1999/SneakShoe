@@ -45,7 +45,9 @@ const reducer = (state, action) => {
 
 function ProductProvider({ children }) {
   const { isAddedToCart, cartDispatch, cartState } = useCart();
+
   const [state, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     if (isAddedToCart) dispatch({ type: "closeModal" });
     cartDispatch({ type: "stickyNav", payload: true });
@@ -101,8 +103,8 @@ function ProductProvider({ children }) {
 
 function useProduct() {
   const context = useContext(ProductContext);
-  if (context === undefined)
-    throw new Error("CartContext was used outside the ProductProvider");
+  //   if (context === undefined)
+  //     throw new Error("ProductContext was used outside the ProductProvider");
   return context;
 }
 

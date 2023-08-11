@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import "./ProductModal.scss";
 import { useCart } from "../../context/CartContext";
 import ModalContent from "../ModalContent/ModalContent";
-import { useProduct } from "../../context/ProductContext";
 
 function ProductModal({ dispatch, state }) {
   const [quantity, setQuantity] = useState(1);
   const { cartProducts, setCartProducts, cartDispatch, cartState } = useCart();
-  const { productState } = useProduct();
 
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
@@ -64,7 +62,7 @@ function ProductModal({ dispatch, state }) {
   return (
     <ModalContent
       onHandleAddToCart={handleAddToCart}
-      state={productState}
+      state={state}
       onHandleCloseModal={handleCloseModal}
       quantity={quantity}
       onSetQuantity={setQuantity}

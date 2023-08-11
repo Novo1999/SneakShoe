@@ -6,7 +6,7 @@ function Product() {
     <div>
       <ModalContent
         onHandleAddToCart={handleAddToCart}
-        state={state}
+        state={productState}
         onHandleCloseModal={handleCloseModal}
         quantity={quantity}
         onSetQuantity={setQuantity}

@@ -18,13 +18,11 @@ function Layout() {
 }
 
 function LayoutContent() {
-  const { productState, productDispatch } = useProduct();
+  const { productState } = useProduct();
   const { cartProducts, cartDispatch, cartState, handleCart } = useCart();
   return (
     <>
-      {productState.isOpened && productState.isLoading && (
-        <ProductModal state={productState} dispatch={productDispatch} />
-      )}
+      {productState.isOpened && productState.isLoading && <ProductModal />}
       <ProductAdded />
       <div
         className={`modal__bg ${

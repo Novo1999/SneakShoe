@@ -1,4 +1,3 @@
-import { useEffect, useReducer } from "react";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";
 import { useProduct } from "../../../context/ProductContext";
