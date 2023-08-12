@@ -19,24 +19,24 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "quickView":
+    case "quickView/open":
       return {
         ...state,
         isOpened: true,
         currentSneakerObject: action.payload,
         overlayIsOpen: true,
       };
-    case "mouseEnter":
+    case "mouse/enter":
       return {
         ...state,
         currentSneaker: action.payload,
       };
-    case "mouseLeave":
+    case "mouse/leave":
       return {
         ...state,
         currentSneaker: null,
       };
-    case "closeModal":
+    case "modal/close":
       return {
         ...state,
         currentSneaker: null,
@@ -65,7 +65,7 @@ function ProductProvider({ children }) {
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
       if (product.id === newProduct.id) {
-        cartDispatch({ type: "cartUpdate", payload: true });
+        cartDispatch({ type: "cart/update", payload: true });
         return {
           ...product,
           quantity: product.quantity + quantity,
@@ -86,29 +86,29 @@ function ProductProvider({ children }) {
       );
     }
 
-    cartDispatch({ type: "isAddedToCart", payload: true });
+    cartDispatch({ type: "product/addedToCart", payload: true });
     setQuantity(1);
   };
 
   useEffect(() => {
-    if (isAddedToCart) dispatch({ type: "closeModal" });
-    cartDispatch({ type: "stickyNav", payload: true });
+    if (isAddedToCart) dispatch({ type: "modal/close" });
+    cartDispatch({ type: "nav/sticky", payload: true });
   }, [isAddedToCart, cartDispatch]);
 
   //   Product quick view
   function handleQuickView(item) {
     setTimeout(() => {
       dispatch({
-        type: "quickView",
+        type: "quickView/open",
         payload: item,
       });
       cartDispatch({
-        type: "openModal",
+        type: "modal/open",
         payload: true,
       });
     }, 600);
     cartDispatch({ type: "isLoading", payload: true });
-    cartDispatch({ type: "stickyNav", payload: false });
+    cartDispatch({ type: "nav/sticky", payload: false });
   }
 
   useEffect(() => {
@@ -117,10 +117,10 @@ function ProductProvider({ children }) {
   }, [cartDispatch, cartState.modalOpen]);
 
   function handleMouseEnter(i) {
-    dispatch({ type: "mouseEnter", payload: i });
+    dispatch({ type: "mouse/enter", payload: i });
   }
   function handleMouseLeave() {
-    dispatch({ type: "mouseLeave" });
+    dispatch({ type: "mouse/leave" });
   }
 
   useEffect(() => {
@@ -131,10 +131,10 @@ function ProductProvider({ children }) {
 
   // Modal Close
   function handleCloseModal() {
-    dispatch({ type: "closeModal" });
+    dispatch({ type: "modal/close" });
     cartDispatch({ type: "stickyNav", payload: true });
     cartDispatch({
-      type: "openModal",
+      type: "modal/open",
       payload: false,
     });
     setQuantity(1);

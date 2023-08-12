@@ -12,19 +12,19 @@ function ProductModal() {
   useEffect(() => {
     if (cartState.isAddedToCart) {
       cartDispatch({ type: "isLoading", isLoading: false });
-      cartDispatch({ type: "openModal", isLoading: false });
+      cartDispatch({ type: "modal/open", isLoading: false });
     }
-  });
+  }, [cartDispatch, cartState.isAddedToCart]);
 
   // Reset after product added message
 
   setTimeout(() => {
-    cartDispatch({ type: "isAddedToCart", payload: false });
+    cartDispatch({ type: "product/addedToCart", payload: false });
   }, 2000);
 
   // Reset after cart updated message
   setTimeout(() => {
-    cartDispatch({ type: "cartUpdate", payload: false });
+    cartDispatch({ type: "cart/update", payload: false });
   }, 2000);
 
   return <ModalContent />;

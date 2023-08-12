@@ -1,26 +1,50 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import Stars from "./Stars";
 import "./CustomerReview.scss";
 import { reviews } from "./ReviewsData";
 
-function CustomerReview() {
-  const [currentReview, setCurrentReview] = useState(0);
-  const [curClicked, setCurClicked] = useState("");
-  const [applyClass, setApplyClass] = useState(false);
-  const [applyClass2, setApplyClass2] = useState(false);
-  const [btnDisabled, setBtnDisabled] = useState(false);
+const initialState = {
+  currentReviewIndex: 0,
+  curClicked: "",
+  applyClass: false,
+  applyClass2: false,
+  btnDisabled: false,
+};
 
-  // Customer review button logic
+function reducer(state, action) {
+  switch (action.type) {
+    case "button/disabled":
+      return { ...state, btnDisabled: action.payload };
+    case "clicked/current":
+      return { ...state, curClicked: action.payload };
+    case "reviews/current":
+      return { ...state, currentReviewIndex: action.payload };
+    case "applyClass/left":
+      return { ...state, applyClass: action.payload };
+    case "applyClass/right":
+      return { ...state, applyClass2: action.payload };
+    default:
+      throw new Error("Unknown action type");
+  }
+}
+
+function CustomerReview() {
+  const [
+    { currentReviewIndex, curClicked, applyClass, applyClass2, btnDisabled },
+    dispatch,
+  ] = useReducer(reducer, initialState);
+
+  // Customer review button logic and animation effect
   const handleCustomer = useCallback(
-    (btn, classFunction) => {
+    (btn) => {
       if (curClicked === btn) {
-        setBtnDisabled(true);
-        classFunction(true);
+        dispatch({ type: "button/disabled", payload: true });
+        dispatch({ type: `applyClass/${btn}`, payload: true });
         const timeoutId = setTimeout(() => {
-          classFunction(false);
-          setCurClicked("");
-          setBtnDisabled(false);
-        }, 510);
+          dispatch({ type: `applyClass/${btn}`, payload: false });
+          dispatch({ type: "clicked/current", payload: "" });
+          dispatch({ type: "button/disabled", payload: false });
+        }, 530);
         return () => clearTimeout(timeoutId);
       }
     },
@@ -28,20 +52,26 @@ function CustomerReview() {
   );
 
   useEffect(() => {
-    handleCustomer("left", setApplyClass);
-    handleCustomer("right", setApplyClass2);
+    handleCustomer("left");
+    handleCustomer("right");
   }, [handleCustomer]);
 
   function handleLeft() {
-    if (currentReview === 0) setCurrentReview(reviews.length);
-    setCurrentReview((cur) => cur - 1);
-    setCurClicked("left");
+    let newIndex = currentReviewIndex - 1;
+    if (newIndex < 0) {
+      newIndex = reviews.length - 1;
+    }
+    dispatch({ type: "reviews/current", payload: newIndex });
+
+    dispatch({ type: "clicked/current", payload: "left" });
   }
   function handleRight() {
-    if (currentReview === reviews.length - 1) {
-      setCurrentReview(0);
-    } else setCurrentReview((cur) => cur + 1);
-    setCurClicked("right");
+    if (currentReviewIndex === reviews.length - 1) {
+      dispatch({ type: "reviews/current", payload: 0 });
+    } else {
+      dispatch({ type: "reviews/current", payload: currentReviewIndex + 1 });
+    }
+    dispatch({ type: "clicked/current", payload: "right" });
   }
 
   return (
@@ -55,13 +85,13 @@ function CustomerReview() {
               applyClass ? "slide-left" : ""
             } ${applyClass2 ? "slide-right" : ""}`}
           >
-            <Stars quantity={reviews[currentReview].rating} />
+            <Stars quantity={reviews[currentReviewIndex].rating} />
             <p className="customer__review-review">
-              {reviews[currentReview].review}
+              {reviews[currentReviewIndex].review}
             </p>
             <div className="customer__review-customer">
-              <img src={reviews[currentReview].img} alt="customer image" />
-              <p>{reviews[currentReview].name}</p>
+              <img src={reviews[currentReviewIndex].img} alt="customer image" />
+              <p>{reviews[currentReviewIndex].name}</p>
             </div>
             <div id="customer__review-btns"></div>
           </div>

@@ -3,16 +3,18 @@ import "./Cart.scss";
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 
-function Cart({ state, dispatch }) {
-  const { cartProducts } = useCart();
+function Cart() {
+  const { cartProducts, cartDispatch, cartState } = useCart();
   function handleCartClose() {
-    dispatch({ type: "overlayOpen", payload: false });
-    dispatch({ type: "hideScrollbar", payload: false });
-    dispatch({ type: "stickyNav", payload: true });
+    cartDispatch({ type: "overlay/open", payload: false });
+    cartDispatch({ type: "scrollbar/hidden", payload: false });
+    cartDispatch({ type: "nav/sticky", payload: true });
   }
   return (
     <div
-      className={`cart ${state.overlayIsOpen ? "enable-cart" : "disable-cart"}`}
+      className={`cart ${
+        cartState.overlayIsOpen ? "enable-cart" : "disable-cart"
+      }`}
     >
       <header>
         <h2>Shopping Cart</h2>
@@ -50,7 +52,7 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
   }
 
   function handleDecreaseQuantity() {
-    if (updatedQuantity === 1) return;
+    // if (updatedQuantity === 1) return;
     setUpdatedQuantity((q) => q - 1);
   }
 
@@ -79,6 +81,10 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
     });
     setCartProducts(updatedCart);
   }
+
+  useEffect(() => {
+    if (updatedQuantity < 1) handleDeleteItem();
+  }, [updatedQuantity]);
 
   return (
     <div className="cart__product">

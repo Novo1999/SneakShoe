@@ -21,19 +21,19 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "overlayOpen":
+    case "overlay/open":
       return { ...state, overlayIsOpen: action.payload };
-    case "hideScrollbar":
+    case "scrollbar/hidden":
       return { ...state, hideScrollbar: action.payload };
-    case "stickyNav":
+    case "nav/sticky":
       return { ...state, isSticky: action.payload };
-    case "isAddedToCart":
+    case "product/addedToCart":
       return { ...state, isAddedToCart: action.payload };
-    case "cartUpdate":
+    case "cart/update":
       return { ...state, cartUpdate: action.payload };
     case "isLoading":
       return { ...state, isLoading: action.payload };
-    case "openModal":
+    case "modal/open":
       return { ...state, modalOpen: action.payload };
     default:
       throw new Error("Unknown Action");
@@ -42,21 +42,22 @@ const reducer = (state, action) => {
 
 function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function handleCart() {
-    dispatch({ type: "overlayOpen", payload: true });
-    dispatch({ type: "hideScrollbar", payload: true });
-    dispatch({ type: "stickyNav", payload: false });
+    dispatch({ type: "overlay/open", payload: true });
+    dispatch({ type: "scrollbar/hidden", payload: true });
+    dispatch({ type: "nav/sticky", payload: false });
   }
 
   // Making the Navbar Sticky on Scroll
 
   function handleScroll() {
     if (window.scrollY > 700 && window.scrollY < 6200) {
-      dispatch({ type: "stickyNav", payload: true });
+      dispatch({ type: "nav/sticky", payload: true });
     } else {
-      dispatch({ type: "stickyNav", payload: false });
+      dispatch({ type: "nav/sticky", payload: false });
     }
   }
 
