@@ -77,9 +77,9 @@ function LayoutContent() {
       </nav>
       <Outlet />
       <div className="page__bottom">
-        <CTA />
+        {/* <CTA />
         <Contact />
-        <Footer />
+        <Footer /> */}
       </div>
     </>
   );

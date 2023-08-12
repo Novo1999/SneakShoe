@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import Stars from "./Stars";
 import "./CustomerReview.scss";
 import { reviews } from "./ReviewsData";

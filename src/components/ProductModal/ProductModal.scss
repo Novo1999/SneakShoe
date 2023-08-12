@@ -3,7 +3,7 @@
   background-color: #08000070;
   max-width: 192rem;
   width: 100%;
-  position: fixed;
+  position: relative;
   top: 0;
   right: 0;
   z-index: 10;
@@ -11,6 +11,10 @@
   justify-content: center;
   align-items: center;
   visibility: hidden;
+}
+
+.relative {
+  position: relative;
 }
 
 .modal__open {
@@ -21,7 +25,7 @@
   z-index: 11;
   display: flex;
   gap: 2.8rem;
-  position: fixed;
+  position: relative;
   right: 0;
   left: 0;
   top: 0;
@@ -30,6 +34,9 @@
   width: 92rem;
   height: 45.2rem;
   background-color: var(--clr-primary);
+  // new class
+  justify-content: flex-end;
+  height: 57rem;
 }
 .modal__container-title {
   font-size: 2.4rem;
@@ -184,6 +191,8 @@
   border-radius: 50%;
   background-color: #fff;
   cursor: pointer;
+  // new class
+  display: none;
 }
 .modal__close-btn:before,
 .modal__close-btn:after {

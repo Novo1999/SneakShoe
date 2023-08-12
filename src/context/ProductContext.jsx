@@ -44,6 +44,13 @@ const reducer = (state, action) => {
         currentSneakerObject: {},
         overlayIsOpen: false,
       };
+    case "product/view":
+      return {
+        ...state,
+        currentSneaker: action.payload,
+        currentSneakerObject: action.payload,
+      };
+
     default:
       throw new Error("Unknown Action");
   }

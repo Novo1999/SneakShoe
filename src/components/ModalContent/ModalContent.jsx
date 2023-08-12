@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
 
 function ModalContent() {
@@ -8,6 +9,9 @@ function ModalContent() {
     handleAddToCart,
     handleCloseModal,
   } = useProduct();
+
+  // Work and fix here
+
   return (
     <div className="modal__container">
       <button
