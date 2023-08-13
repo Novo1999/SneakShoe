@@ -22,7 +22,7 @@ function App() {
             <Route path="men" element={<Men />} />
             <Route path="women" element={<Women />} />
             <Route path="collection" element={<Collection />} />
-            <Route path="product/*" element={<Product />} />
+            <Route path="product/:id" element={<Product />} />
             <Route path="lookbook" element={<Lookbook />} />
             <Route path="sale" element={<Sale />} />
             <Route path="our-story" element={<Story />} />

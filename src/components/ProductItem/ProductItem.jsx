@@ -1,9 +1,8 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
-import Product from "../../pages/Product/Product";
 
 function ProductItem({ shoe, index }) {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const {
     handleMouseEnter,
     handleMouseLeave,
@@ -14,8 +13,11 @@ function ProductItem({ shoe, index }) {
 
   function handleClick() {
     productDispatch({ type: "product/view", payload: shoe });
-    navigate("/product");
+    // navigate("/product");
+    setSearchParams(`/product/${shoe.id}`);
+    window.scrollTo(-50, -50);
   }
+
   return (
     <div
       onMouseEnter={() => handleMouseEnter(index)}

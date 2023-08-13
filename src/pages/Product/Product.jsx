@@ -2,7 +2,7 @@ import ModalContent from "../../components/ModalContent/ModalContent";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import "./Product.scss";
 import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
 
 const bestSellerIndices = [1, 6, 5];
