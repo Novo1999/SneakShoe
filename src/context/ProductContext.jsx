@@ -15,6 +15,7 @@ const initialState = {
   currentSneakerObject: {},
   overlayIsOpen: false,
   isLoading: true,
+  isProductClicked: false,
 };
 
 const reducer = (state, action) => {
@@ -50,7 +51,11 @@ const reducer = (state, action) => {
         currentSneaker: action.payload,
         currentSneakerObject: action.payload,
       };
-
+    case "product/clicked":
+      return {
+        ...state,
+        isProductClicked: action.payload,
+      };
     default:
       throw new Error("Unknown Action");
   }
@@ -109,6 +114,7 @@ function ProductProvider({ children }) {
         type: "quickView/open",
         payload: item,
       });
+      dispatch({ type: "product/clicked", payload: false });
       cartDispatch({
         type: "modal/open",
         payload: true,
@@ -139,7 +145,7 @@ function ProductProvider({ children }) {
   // Modal Close
   function handleCloseModal() {
     dispatch({ type: "modal/close" });
-    cartDispatch({ type: "stickyNav", payload: true });
+    cartDispatch({ type: "nav/sticky", payload: true });
     cartDispatch({
       type: "modal/open",
       payload: false,

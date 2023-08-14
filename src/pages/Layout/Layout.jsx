@@ -1,7 +1,6 @@
 import "./Layout.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { Cart, ProductAdded } from "../../components";
-import { CTA, Contact, Footer } from "../../components";
 import { CartProvider, useCart } from "../../context/CartContext";
 import Spinner from "../../components/Spinner/Spinner";
 import ProductModal from "../../components/ProductModal/ProductModal";
@@ -38,7 +37,7 @@ function LayoutContent() {
         <div
           className={`modal__bg ${
             cartState.overlayIsOpen ? "modal__open" : ""
-          }`}
+          } `}
         ></div>
       )}
       <Cart dispatch={cartDispatch} state={cartState} />

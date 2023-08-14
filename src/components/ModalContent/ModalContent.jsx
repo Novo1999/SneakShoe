@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
 
 function ModalContent() {
@@ -13,16 +12,28 @@ function ModalContent() {
   // Work and fix here
 
   return (
-    <div className="modal__container">
+    <div
+      className={`${
+        productState.isProductClicked
+          ? "isProductClicked_modal-container"
+          : "modal__container"
+      }`}
+    >
       <button
         onClick={handleCloseModal}
-        className="modal__close-btn btn-disable"
+        className={`${
+          productState.isProductClicked ? "btn-disable" : "modal__close-btn"
+        }`}
       ></button>
       <div className="modal__container-img">
         <img src={productState.currentSneakerObject.img} alt="Sneaker image" />
       </div>
       <div className="modal__container-details">
-        <div className="modal__details-section">
+        <div
+          className={`modal__details-section ${
+            productState.isProductClicked ? "overflowHide" : ""
+          }`}
+        >
           <h2 className="modal__container-title">
             {productState.currentSneakerObject.name}
           </h2>
