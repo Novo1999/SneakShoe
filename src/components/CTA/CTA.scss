@@ -5,7 +5,17 @@
   img {
     width: 110%;
   }
+  position: relative;
+  top: 10rem;
 }
+.cta {
+  display: flex;
+  justify-content: center;
+  background-color: var(--clr-secondary-3);
+  width: 100%;
+  margin: auto;
+}
+
 .cta__container-details {
   position: absolute;
   display: flex;

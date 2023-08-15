@@ -1,34 +1,12 @@
 import ModalContent from "../../components/ModalContent/ModalContent";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import "./Product.scss";
-
 import { useProduct } from "../../context/ProductContext";
-import uniqueRandomArray from "unique-random-array";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-// import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
-
-import sneakersData from "../../../data/sneakers.json";
-
-const sneakers = JSON.parse(JSON.stringify(sneakersData));
-
-function generateRandomRelatedProducts(relatedProducts) {
-  const relatedProductsIndices = Array.from(
-    { length: relatedProducts.length },
-    (_, index) => index
-  );
-
-  const random = uniqueRandomArray(relatedProductsIndices);
-  const randomRelatedProductsIndices = [random(), random(), random()];
-
-  return randomRelatedProductsIndices.map((item) => relatedProducts[item]);
-}
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function Product() {
   const { productState, productDispatch } = useProduct();
-  const [randomRelatedProducts, setRandomRelatedProducts] = useState(
-    generateRandomRelatedProducts(sneakers || productState.relatedProducts)
-  );
 
   const { id } = useParams();
 
@@ -51,12 +29,6 @@ function Product() {
     };
     fetchData();
   }, [id, productDispatch]);
-
-  // useEffect(() => {
-  //   setRandomRelatedProducts(() =>
-  //     generateRandomRelatedProducts(productState.relatedProducts)
-  //   );
-  // }, [id, productState.relatedProducts]);
 
   return (
     <>
@@ -91,7 +63,9 @@ function Product() {
               </p>
             </div>
           </section>
-          <RelatedProducts randomRelatedProducts={randomRelatedProducts} />
+          <RelatedProducts
+            randomRelatedProducts={productState.relatedProducts}
+          />
         </div>
       </div>
     </>

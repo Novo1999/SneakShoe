@@ -1,6 +1,6 @@
 import "./Layout.scss";
 import { NavLink, Outlet, useParams } from "react-router-dom";
-import { Cart, ProductAdded } from "../../components";
+import { CTA, Cart, Contact, Footer, ProductAdded } from "../../components";
 import { CartProvider, useCart } from "../../context/CartContext";
 import Spinner from "../../components/Spinner/Spinner";
 import ProductModal from "../../components/ProductModal/ProductModal";
@@ -73,9 +73,9 @@ const LayoutContent = memo(function LayoutContent() {
       </nav>
       <Outlet />
       <div className="page__bottom">
-        {/* <CTA />
+        <CTA />
         <Contact />
-        <Footer /> */}
+        <Footer />
       </div>
     </>
   );

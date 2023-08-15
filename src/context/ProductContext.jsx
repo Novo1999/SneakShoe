@@ -7,9 +7,22 @@ import {
 } from "react";
 import { useCart } from "./CartContext";
 import { sneakers } from "../components/Homepage/BestSeller/SneakersData";
-import { useParams } from "react-router-dom";
+import uniqueRandomArray from "unique-random-array";
 
 export const ProductContext = createContext();
+
+function generateRandomRelatedProducts(relatedProducts) {
+  if (!relatedProducts) return [];
+  const relatedProductsIndices = Array.from(
+    { length: relatedProducts.length },
+    (_, index) => index
+  );
+
+  const random = uniqueRandomArray(relatedProductsIndices);
+  const randomRelatedProductsIndices = [random(), random(), random()];
+
+  return randomRelatedProductsIndices.map((item) => relatedProducts[item]);
+}
 
 const initialState = {
   currentSneaker: null,
@@ -19,6 +32,7 @@ const initialState = {
   isLoading: true,
   isProductClicked: false,
   relatedProducts: [],
+  relatedProductsCategory: "",
 };
 
 const reducer = (state, action) => {
@@ -62,13 +76,23 @@ const reducer = (state, action) => {
         isProductClicked: action.payload,
       };
     case "refresh":
-      console.log(action.payload);
-      return {
-        ...state,
-        currentSneakerObject: action.payload,
-        isProductClicked: true,
-      };
-
+      const category = action.payload.category;
+      if (category) {
+        console.log(action.payload.category);
+        const categoryProducts = sneakers.filter((sneaker) => {
+          return sneaker.category === category;
+        });
+        const randomRelatedProducts =
+          generateRandomRelatedProducts(categoryProducts);
+        return {
+          ...state,
+          currentSneakerObject: action.payload,
+          isProductClicked: true,
+          relatedProductsCategory: action.payload.category,
+          relatedProducts: randomRelatedProducts,
+        };
+      }
+      break;
     default:
       throw new Error("Unknown Action");
   }
@@ -85,10 +109,7 @@ function ProductProvider({ children }) {
     cartProducts,
     setCartProducts,
   } = useCart();
-
-  console.log(state.currentSneakerObject);
-  // console.log(state.relatedProducts);
-
+  console.log(state.relatedProductsCategory);
   // Adding product to cart
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
