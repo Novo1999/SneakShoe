@@ -1,7 +1,7 @@
 import ModalContent from "../../components/ModalContent/ModalContent";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import "./Product.scss";
-import { useProduct } from "../../context/ProductContext";
+import { useProduct } from "../../contexts/ProductContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 

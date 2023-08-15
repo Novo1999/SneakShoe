@@ -13,8 +13,8 @@ import {
 } from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Spinner from "./components/Spinner/Spinner";
-import { CartProvider } from "./context/CartContext";
-import { ProductProvider } from "./context/ProductContext";
+import { CartProvider } from "./contexts/CartContext";
+import { ProductProvider } from "./contexts/ProductContext";
 // import Product from "./pages/Product/Product";
 
 const Product = lazy(() => import("./pages/Product/Product"));

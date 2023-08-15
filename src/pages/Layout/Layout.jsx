@@ -1,10 +1,10 @@
 import "./Layout.scss";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { CTA, Cart, Contact, Footer, ProductAdded } from "../../components";
-import { CartProvider, useCart } from "../../context/CartContext";
+import { CartProvider, useCart } from "../../contexts/CartContext";
 import Spinner from "../../components/Spinner/Spinner";
 import ProductModal from "../../components/ProductModal/ProductModal";
-import { ProductProvider, useProduct } from "../../context/ProductContext";
+import { ProductProvider, useProduct } from "../../contexts/ProductContext";
 import { memo, useCallback, useEffect } from "react";
 // import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
 
@@ -13,7 +13,7 @@ function Layout() {
 }
 
 const LayoutContent = memo(function LayoutContent() {
-  const { productState } = useProduct();
+  const { productState, productDispatch } = useProduct();
   const { cartProducts, cartDispatch, cartState, handleCart } = useCart();
 
   return (
@@ -29,7 +29,7 @@ const LayoutContent = memo(function LayoutContent() {
         {cartState.isLoading && <Spinner />}
       </div>
 
-      {/* Cart openning logic */}
+      {/* Cart opening logic */}
       {cartState.overlayIsOpen && (
         <div
           className={`modal__bg ${

@@ -1,6 +1,6 @@
 import "./ProductAdded.scss";
 
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../contexts/CartContext";
 function ProductAdded() {
   const { isAddedToCart, cartProducts, cartState } = useCart();
 

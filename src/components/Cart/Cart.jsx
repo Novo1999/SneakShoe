@@ -1,7 +1,7 @@
 import "./Cart.scss";
 
 import { useCallback, useEffect, useState } from "react";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../contexts/CartContext";
 
 function Cart() {
   const { cartProducts, cartDispatch, cartState } = useCart();

@@ -12,7 +12,7 @@ import {
 } from "../../components";
 import Product from "../Product/Product";
 import { useCallback, useEffect } from "react";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../contexts/CartContext";
 
 function Homepage() {
   const { cartDispatch } = useCart();

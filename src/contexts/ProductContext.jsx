@@ -43,6 +43,7 @@ const reducer = (state, action) => {
         isOpened: true,
         currentSneakerObject: action.payload,
         overlayIsOpen: true,
+        isLoading: true,
       };
     case "mouse/enter":
       return {
@@ -59,7 +60,6 @@ const reducer = (state, action) => {
         ...state,
         currentSneaker: null,
         isOpened: false,
-        currentSneakerObject: [],
         overlayIsOpen: false,
       };
     case "product/view":
@@ -71,14 +71,18 @@ const reducer = (state, action) => {
         }),
       };
     case "product/clicked":
+      console.log("click");
       return {
         ...state,
         isProductClicked: action.payload,
       };
+    // case "reset":
+    //   return {
+    //     state: initialState,
+    //   };
     case "refresh":
       const category = action.payload.category;
       if (category) {
-        console.log(action.payload.category);
         const categoryProducts = sneakers.filter((sneaker) => {
           return sneaker.category === category;
         });
@@ -109,7 +113,6 @@ function ProductProvider({ children }) {
     cartProducts,
     setCartProducts,
   } = useCart();
-  console.log(state.relatedProductsCategory);
   // Adding product to cart
   const handleAddToCart = (newProduct) => {
     const updatedCartProducts = cartProducts.map((product) => {
@@ -134,18 +137,23 @@ function ProductProvider({ children }) {
         prevCartProducts ? [...prevCartProducts, newProduct] : [newProduct]
       );
     }
-
     cartDispatch({ type: "product/addedToCart", payload: true });
     setQuantity(1);
   };
 
   useEffect(() => {
-    if (isAddedToCart) dispatch({ type: "modal/close" });
-    cartDispatch({ type: "nav/sticky", payload: true });
-  }, [isAddedToCart, cartDispatch]);
+    if (state.isProductClicked && isAddedToCart) {
+      dispatch({ type: "modal/close" });
+      cartDispatch({ type: "nav/sticky", payload: true });
+    }
+    dispatch({ type: "modal/close" });
+  }, [isAddedToCart, cartDispatch, state.isProductClicked]);
+
+  // BUG Quick view modal not opening
 
   //   Product quick view
-  function handleQuickView(item) {
+  function handleQuickView(e, item) {
+    console.log(e.currentTarget);
     setTimeout(() => {
       dispatch({
         type: "quickView/open",

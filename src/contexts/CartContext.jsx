@@ -4,7 +4,6 @@ import {
   useEffect,
   createContext,
   useReducer,
-  useCallback,
 } from "react";
 
 export const CartContext = createContext();

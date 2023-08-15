@@ -131,10 +131,12 @@
 }
 .modal__container-cart {
   display: flex;
-  gap: 3.2rem;
+  gap: 5.2rem;
+  justify-content: space-around;
   button {
     padding: 1rem 1.5rem;
   }
+  margin-right: 2rem;
 }
 .modal__container-cart-buttons {
   display: flex;
@@ -228,7 +230,7 @@
   left: 0;
   bottom: 3rem;
   margin: auto;
-  height: 56.2rem;
+  // height: 56.2rem;
   background-color: var(--clr-primary);
   img {
     width: 130%;

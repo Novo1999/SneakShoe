@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import "./ProductModal.scss";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../contexts/CartContext";
 import ModalContent from "../ModalContent/ModalContent";
 
 function ProductModal() {
@@ -11,8 +11,8 @@ function ProductModal() {
 
   useEffect(() => {
     if (cartState.isAddedToCart) {
-      cartDispatch({ type: "isLoading", isLoading: false });
-      cartDispatch({ type: "modal/open", isLoading: false });
+      cartDispatch({ type: "isLoading", payload: false });
+      cartDispatch({ type: "modal/open", payload: false });
     }
   }, [cartDispatch, cartState.isAddedToCart]);
 

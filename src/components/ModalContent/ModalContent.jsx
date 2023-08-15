@@ -1,6 +1,4 @@
-import { useParams } from "react-router-dom";
-import { useProduct } from "../../context/ProductContext";
-import { useEffect } from "react";
+import { useProduct } from "../../contexts/ProductContext";
 
 function ModalContent() {
   const {
@@ -9,7 +7,6 @@ function ModalContent() {
     setQuantity,
     handleAddToCart,
     handleCloseModal,
-    productDispatch,
   } = useProduct();
 
   return (

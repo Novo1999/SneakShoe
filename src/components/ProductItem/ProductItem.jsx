@@ -1,5 +1,5 @@
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { useProduct } from "../../context/ProductContext";
+import { useProduct } from "../../contexts/ProductContext";
 import { memo, useEffect } from "react";
 // import { sneakers } from "../Homepage/BestSeller/SneakersData";
 
@@ -23,15 +23,6 @@ const ProductItem = memo(function ProductItem({ shoe, index }) {
     setSearchParams(`/product/${shoe.id}`);
     window.scrollTo(-50, -50);
   }
-  const routeParam = useParams();
-
-  // useEffect(() => {
-  //   const shoe = sneakers.find((sneaker) => sneaker.id === routeParam.id);
-  //   productDispatch({ type: "product/view", payload: shoe });
-  //   productDispatch({ type: "product/clicked", payload: true });
-  //   console.log(shoe);
-  // }, [routeParam, productDispatch]);
-
   return (
     <div
       onMouseEnter={() => handleMouseEnter(index)}
@@ -50,14 +41,14 @@ const ProductItem = memo(function ProductItem({ shoe, index }) {
         />
       </Link>
 
-      <p
-        onClick={() => handleQuickView(shoe)}
+      <button
+        onClick={(e) => handleQuickView(e, shoe)}
         className={`best__seller-sneakers--quick-view ${
           productState.currentSneaker === index ? "mouse-enter" : "mouse-leave"
         }`}
       >
         Quick View
-      </p>
+      </button>
 
       <p className="best__seller-sneakers--name">{shoe.name}</p>
       <div className="best__seller-sneakers--price-section">
