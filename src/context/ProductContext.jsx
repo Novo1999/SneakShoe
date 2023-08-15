@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { useCart } from "./CartContext";
+import { sneakers } from "../components/Homepage/BestSeller/SneakersData";
 
 export const ProductContext = createContext();
 
@@ -16,6 +17,7 @@ const initialState = {
   overlayIsOpen: false,
   isLoading: true,
   isProductClicked: false,
+  relatedProducts: [],
 };
 
 const reducer = (state, action) => {
@@ -48,8 +50,10 @@ const reducer = (state, action) => {
     case "product/view":
       return {
         ...state,
-        currentSneaker: action.payload,
         currentSneakerObject: action.payload,
+        relatedProducts: sneakers.filter((item) => {
+          return item.category === action.payload.category;
+        }),
       };
     case "product/clicked":
       return {
@@ -62,6 +66,7 @@ const reducer = (state, action) => {
 };
 
 function ProductProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [quantity, setQuantity] = useState(1);
   const {
     isAddedToCart,
@@ -70,8 +75,7 @@ function ProductProvider({ children }) {
     cartProducts,
     setCartProducts,
   } = useCart();
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // console.log(state.relatedProducts);
 
   // Adding product to cart
   const handleAddToCart = (newProduct) => {

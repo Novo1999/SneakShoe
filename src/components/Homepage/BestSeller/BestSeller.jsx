@@ -1,3 +1,4 @@
+import { useProduct } from "../../../context/ProductContext";
 import ProductItem from "../../ProductItem/ProductItem";
 import "./BestSeller.scss";
 import { sneakers } from "./SneakersData";

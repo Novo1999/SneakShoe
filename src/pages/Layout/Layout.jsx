@@ -5,20 +5,16 @@ import { CartProvider, useCart } from "../../context/CartContext";
 import Spinner from "../../components/Spinner/Spinner";
 import ProductModal from "../../components/ProductModal/ProductModal";
 import { ProductProvider, useProduct } from "../../context/ProductContext";
+import { memo, useCallback, useEffect } from "react";
 
 function Layout() {
-  return (
-    <CartProvider>
-      <ProductProvider>
-        <LayoutContent />
-      </ProductProvider>
-    </CartProvider>
-  );
+  return <LayoutContent />;
 }
 
-function LayoutContent() {
+const LayoutContent = memo(function LayoutContent() {
   const { productState } = useProduct();
   const { cartProducts, cartDispatch, cartState, handleCart } = useCart();
+
   return (
     <>
       {/* Modal Logic */}
@@ -82,6 +78,6 @@ function LayoutContent() {
       </div>
     </>
   );
-}
+});
 
 export default Layout;

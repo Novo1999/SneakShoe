@@ -1,6 +1,6 @@
 import "./Cart.scss";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 
 function Cart() {
@@ -75,16 +75,19 @@ function CartItem({ name, image, price, id, discountedPrice, quantity }) {
   }, [quantity]);
 
   // Delete cart item
-  function handleDeleteItem() {
-    const updatedCart = cartProducts.filter((item) => {
-      return item.id !== id;
-    });
-    setCartProducts(updatedCart);
-  }
+  const handleDeleteItem = useCallback(
+    function handleDeleteItem() {
+      const updatedCart = cartProducts.filter((item) => {
+        return item.id !== id;
+      });
+      setCartProducts(updatedCart);
+    },
+    [cartProducts, id, setCartProducts]
+  );
 
   useEffect(() => {
     if (updatedQuantity < 1) handleDeleteItem();
-  }, [updatedQuantity]);
+  }, [updatedQuantity, handleDeleteItem]);
 
   return (
     <div className="cart__product">

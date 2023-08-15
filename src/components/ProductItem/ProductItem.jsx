@@ -1,8 +1,8 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
-import { useState } from "react";
+import { memo } from "react";
 
-function ProductItem({ shoe, index }) {
+const ProductItem = memo(function ProductItem({ shoe, index }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
@@ -12,14 +12,24 @@ function ProductItem({ shoe, index }) {
     productState,
     productDispatch,
   } = useProduct();
-
   function handleClick() {
-    productDispatch({ type: "product/view", payload: shoe });
+    productDispatch({
+      type: "product/view",
+      payload: shoe,
+    });
     productDispatch({ type: "product/clicked", payload: true });
     // navigate("/product");
     setSearchParams(`/product/${shoe.id}`);
     window.scrollTo(-50, -50);
   }
+  // const routeParam = useParams();
+
+  // useEffect(() => {
+  //   const shoe = sneakers.find((sneaker) => sneaker.id === routeParam.id);
+  //   productDispatch({ type: "product/view", payload: shoe });
+  //   productDispatch({ type: "product/clicked", payload: true });
+  //   console.log(shoe);
+  // }, [routeParam, productDispatch]);
 
   return (
     <div
@@ -57,6 +67,6 @@ function ProductItem({ shoe, index }) {
       </div>
     </div>
   );
-}
+});
 
 export default ProductItem;

@@ -4,6 +4,7 @@ import {
   useEffect,
   createContext,
   useReducer,
+  useCallback,
 } from "react";
 
 export const CartContext = createContext();
@@ -51,16 +52,6 @@ function CartProvider({ children }) {
     dispatch({ type: "nav/sticky", payload: false });
   }
 
-  // Making the Navbar Sticky on Scroll
-
-  function handleScroll() {
-    if (window.scrollY > 700 && window.scrollY < 6200) {
-      dispatch({ type: "nav/sticky", payload: true });
-    } else {
-      dispatch({ type: "nav/sticky", payload: false });
-    }
-  }
-
   // Hiding the Scrollbar
 
   useEffect(() => {
@@ -68,13 +59,6 @@ function CartProvider({ children }) {
     if (state.hideScrollbar) html.classList.add("hide-scrollbar");
     else html.classList.remove("hide-scrollbar");
   }, [state.hideScrollbar]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <CartContext.Provider

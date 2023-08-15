@@ -1,12 +1,50 @@
 import ModalContent from "../../components/ModalContent/ModalContent";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import "./Product.scss";
+
+import { useProduct } from "../../context/ProductContext";
+import uniqueRandomArray from "unique-random-array";
+import { memo, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
 
-const bestSellerIndices = [1, 6, 5];
-const bestSellers = bestSellerIndices.map((item) => sneakers[item]);
+function generateRandomRelatedProducts(relatedProducts) {
+  const relatedProductsIndices = Array.from(
+    { length: relatedProducts.length },
+    (_, index) => index
+  );
+
+  const random = uniqueRandomArray(relatedProductsIndices);
+  const randomRelatedProductsIndices = [random(), random(), random()];
+
+  return randomRelatedProductsIndices.map((item) => relatedProducts[item]);
+}
 
 function Product() {
+  const { productState } = useProduct();
+  const [randomRelatedProducts, setRandomRelatedProducts] = useState(
+    generateRandomRelatedProducts(productState.relatedProducts)
+  );
+
+  const routeParam = useParams();
+
+  useEffect(() => {
+    setRandomRelatedProducts(
+      generateRandomRelatedProducts(productState.relatedProducts)
+    );
+    console.log(routeParam);
+  }, [routeParam, productState.relatedProducts]);
+
+  // useEffect(() => {
+  //   if (routeParam)
+  //     productDispatch({
+  //       type: "product/view",
+  //       payload: sneakers.filter((item) => {
+  //         return item.id === routeParam.id;
+  //       }),
+  //     });
+  // }, []);
+
   return (
     <>
       <div className="product">
@@ -40,14 +78,7 @@ function Product() {
               </p>
             </div>
           </section>
-          <section>
-            <h2>Related products</h2>
-            <div className="product__related">
-              {bestSellers.map((item, i) => {
-                return <ProductItem shoe={item} key={i} index={i} />;
-              })}
-            </div>
-          </section>
+          <RelatedProducts randomRelatedProducts={randomRelatedProducts} />
         </div>
       </div>
     </>
@@ -55,3 +86,16 @@ function Product() {
 }
 
 export default Product;
+
+function RelatedProducts({ randomRelatedProducts }) {
+  return (
+    <section>
+      <h2>Related products</h2>
+      <div className="product__related">
+        {randomRelatedProducts.map((item, i) => {
+          return <ProductItem shoe={item} key={i} index={i} />;
+        })}
+      </div>
+    </section>
+  );
+}

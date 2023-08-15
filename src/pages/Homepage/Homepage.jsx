@@ -11,10 +11,33 @@ import {
   CustomerReview,
 } from "../../components";
 import Product from "../Product/Product";
+import { useCallback, useEffect } from "react";
+import { useCart } from "../../context/CartContext";
 
 function Homepage() {
+  const { cartDispatch } = useCart();
+  // Making the Navbar Sticky on Scroll
+
+  const handleScroll = useCallback(() => {
+    function handleScroll() {
+      if (window.scrollY > 700 && window.scrollY < 6200) {
+        cartDispatch({ type: "nav/sticky", payload: true });
+      } else {
+        cartDispatch({ type: "nav/sticky", payload: false });
+      }
+    }
+    handleScroll();
+  }, [cartDispatch]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
   return (
-    <main className="homepage">
+    <main onScroll={handleScroll} className="homepage">
       <Hero />
       <Branding />
       <About />
