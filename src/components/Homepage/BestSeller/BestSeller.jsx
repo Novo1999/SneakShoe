@@ -1,7 +1,9 @@
-import { useProduct } from "../../../context/ProductContext";
 import ProductItem from "../../ProductItem/ProductItem";
 import "./BestSeller.scss";
-import { sneakers } from "./SneakersData";
+// import { sneakers } from "./SneakersData";
+import sneakersData from "../../../../data/sneakers.json";
+
+const sneakers = JSON.parse(JSON.stringify(sneakersData));
 
 // Random Items as Best Seller
 const bestSellerIndices = [1, 6, 5, 13, 7, 16];

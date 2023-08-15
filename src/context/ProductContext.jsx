@@ -7,13 +7,14 @@ import {
 } from "react";
 import { useCart } from "./CartContext";
 import { sneakers } from "../components/Homepage/BestSeller/SneakersData";
+import { useParams } from "react-router-dom";
 
 export const ProductContext = createContext();
 
 const initialState = {
   currentSneaker: null,
   isOpened: false,
-  currentSneakerObject: {},
+  currentSneakerObject: [],
   overlayIsOpen: false,
   isLoading: true,
   isProductClicked: false,
@@ -44,7 +45,7 @@ const reducer = (state, action) => {
         ...state,
         currentSneaker: null,
         isOpened: false,
-        currentSneakerObject: {},
+        currentSneakerObject: [],
         overlayIsOpen: false,
       };
     case "product/view":
@@ -60,6 +61,14 @@ const reducer = (state, action) => {
         ...state,
         isProductClicked: action.payload,
       };
+    case "refresh":
+      console.log(action.payload);
+      return {
+        ...state,
+        currentSneakerObject: action.payload,
+        isProductClicked: true,
+      };
+
     default:
       throw new Error("Unknown Action");
   }
@@ -68,6 +77,7 @@ const reducer = (state, action) => {
 function ProductProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [quantity, setQuantity] = useState(1);
+
   const {
     isAddedToCart,
     cartDispatch,
@@ -75,6 +85,8 @@ function ProductProvider({ children }) {
     cartProducts,
     setCartProducts,
   } = useCart();
+
+  console.log(state.currentSneakerObject);
   // console.log(state.relatedProducts);
 
   // Adding product to cart

@@ -1,11 +1,12 @@
 import "./Layout.scss";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import { Cart, ProductAdded } from "../../components";
 import { CartProvider, useCart } from "../../context/CartContext";
 import Spinner from "../../components/Spinner/Spinner";
 import ProductModal from "../../components/ProductModal/ProductModal";
 import { ProductProvider, useProduct } from "../../context/ProductContext";
 import { memo, useCallback, useEffect } from "react";
+// import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
 
 function Layout() {
   return <LayoutContent />;

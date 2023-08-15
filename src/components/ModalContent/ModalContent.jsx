@@ -1,4 +1,6 @@
+import { useParams } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
+import { useEffect } from "react";
 
 function ModalContent() {
   const {
@@ -7,9 +9,8 @@ function ModalContent() {
     setQuantity,
     handleAddToCart,
     handleCloseModal,
+    productDispatch,
   } = useProduct();
-
-  // Work and fix here
 
   return (
     <div

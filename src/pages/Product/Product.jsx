@@ -4,9 +4,13 @@ import "./Product.scss";
 
 import { useProduct } from "../../context/ProductContext";
 import uniqueRandomArray from "unique-random-array";
-import { memo, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+// import { sneakers } from "../../components/Homepage/BestSeller/SneakersData";
+
+import sneakersData from "../../../data/sneakers.json";
+
+const sneakers = JSON.parse(JSON.stringify(sneakersData));
 
 function generateRandomRelatedProducts(relatedProducts) {
   const relatedProductsIndices = Array.from(
@@ -21,29 +25,38 @@ function generateRandomRelatedProducts(relatedProducts) {
 }
 
 function Product() {
-  const { productState } = useProduct();
+  const { productState, productDispatch } = useProduct();
   const [randomRelatedProducts, setRandomRelatedProducts] = useState(
-    generateRandomRelatedProducts(productState.relatedProducts)
+    generateRandomRelatedProducts(sneakers || productState.relatedProducts)
   );
 
-  const routeParam = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    setRandomRelatedProducts(
-      generateRandomRelatedProducts(productState.relatedProducts)
-    );
-    console.log(routeParam);
-  }, [routeParam, productState.relatedProducts]);
+    const fetchData = async () => {
+      try {
+        const res = await import("../../../data/sneakers.json");
+        const sneakers = res.default;
+
+        if (id) {
+          const sneaker = sneakers.find((item) => item.id === id);
+          productDispatch({
+            type: "refresh",
+            payload: sneaker,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchData();
+  }, [id, productDispatch]);
 
   // useEffect(() => {
-  //   if (routeParam)
-  //     productDispatch({
-  //       type: "product/view",
-  //       payload: sneakers.filter((item) => {
-  //         return item.id === routeParam.id;
-  //       }),
-  //     });
-  // }, []);
+  //   setRandomRelatedProducts(() =>
+  //     generateRandomRelatedProducts(productState.relatedProducts)
+  //   );
+  // }, [id, productState.relatedProducts]);
 
   return (
     <>
@@ -68,7 +81,7 @@ function Product() {
                 Eget odio justo ut scelerisque purus non aliquam adipiscing amet
                 condimentum ligula diam erat sodales pharetra accumsan
                 pellentesque at sem at eget ac hendrerit odio enim felis sit
-                augue lorem egestas dictum vestibulum a etiam nisi, elit augue{" "}
+                augue lorem egestas dictum vestibulum a etiam nisi, elit augue
                 <br />
                 <br />
                 volutpat porta scelerisque nullam at leo faucibus cursus metus.

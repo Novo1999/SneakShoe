@@ -1,6 +1,6 @@
 export const sneakers = [
   {
-    id: generateRandomId(),
+    id: "1a2b3c4d",
     name: "Women's Green Training",
     price: "64.90",
     discountedPrice: "49.90",
@@ -9,7 +9,7 @@ export const sneakers = [
     altCategory: "Training",
   },
   {
-    id: generateRandomId(),
+    id: "5e6f7g8h",
     name: "Women's Pink Training",
     price: "64.90",
     discountedPrice: "54.90",
@@ -18,7 +18,7 @@ export const sneakers = [
     altCategory: "Training",
   },
   {
-    id: generateRandomId(),
+    id: "9i0j1k2l",
     name: "Women's Peach Training",
     price: "69.90",
     discountedPrice: "57.90",
@@ -27,7 +27,7 @@ export const sneakers = [
     altCategory: "Training",
   },
   {
-    id: generateRandomId(),
+    id: "3m4n5o6p",
     name: "Men's Red Running",
     price: "79.90",
     discountedPrice: "69.90",
@@ -36,7 +36,7 @@ export const sneakers = [
     altCategory: "Running",
   },
   {
-    id: generateRandomId(),
+    id: "7q8r9xs0t",
     name: "Men's Black Running",
     price: "79.90",
     img: "images/Shoe for sale/Sneaker-15.jpg",
@@ -44,7 +44,7 @@ export const sneakers = [
     altCategory: "Running",
   },
   {
-    id: generateRandomId(),
+    id: "a1b2c3d4",
     name: "Men's Navy Running",
     price: "104.90",
     img: "images/Shoe for sale/Sneaker-18.jpg",
@@ -52,7 +52,7 @@ export const sneakers = [
     altCategory: "Running",
   },
   {
-    id: generateRandomId(),
+    id: "e5fz6g7h8",
     name: "Women's Blue Training",
     price: "69.90",
     discountedPrice: "60.00",
@@ -61,7 +61,7 @@ export const sneakers = [
     altCategory: "Training",
   },
   {
-    id: generateRandomId(),
+    id: "i9j0qk1l2",
     name: "Men's Green Running",
     price: "104.90",
     discountedPrice: "89.90",
@@ -70,7 +70,7 @@ export const sneakers = [
     altCategory: "Running",
   },
   {
-    id: generateRandomId(),
+    id: "3m4n5o6Q",
     name: "Women's Tan Sneaker",
     price: "89.90",
     discountedPrice: "80.00",
@@ -79,7 +79,7 @@ export const sneakers = [
     altCategory: "Sneaker",
   },
   {
-    id: generateRandomId(),
+    id: "7q8r9s0tx",
     name: "Women's Mint Sneaker",
     price: "89.90",
     img: "images/Shoe for sale/Sneaker-20.jpg",
@@ -87,7 +87,7 @@ export const sneakers = [
     altCategory: "Sneaker",
   },
   {
-    id: generateRandomId(),
+    id: "a1b2xc3d4",
     name: "Men's Earth-Tone Sneaker",
     price: "74.90",
     img: "images/Shoe for sale/Sneaker-9.jpg",
@@ -95,7 +95,7 @@ export const sneakers = [
     altCategory: "Sneaker",
   },
   {
-    id: generateRandomId(),
+    id: "e5f6gx7h8",
     name: "Men's Moonstone Sneaker",
     price: "74.90",
     img: "images/Shoe for sale/Sneaker-10.jpg",
@@ -103,7 +103,7 @@ export const sneakers = [
     altCategory: "Sneaker",
   },
   {
-    id: generateRandomId(),
+    id: "i9j0k1xl2",
     name: "Women's Candy City Run",
     price: "54.90",
     discountedPrice: "40.00",
@@ -112,7 +112,7 @@ export const sneakers = [
     altCategory: "Run",
   },
   {
-    id: generateRandomId(),
+    id: "3m4n5so6p",
     name: "Women's Tosca City Run",
     price: "64.00",
     img: "images/Shoe for sale/Sneaker-4.jpg",
@@ -120,7 +120,7 @@ export const sneakers = [
     altCategory: "Run",
   },
   {
-    id: generateRandomId(),
+    id: "7q8r9s0t",
     name: "Women's Choco City Run",
     price: "64.00",
     img: "images/Shoe for sale/Sneaker-5.jpg",
@@ -128,7 +128,7 @@ export const sneakers = [
     altCategory: "Run",
   },
   {
-    id: generateRandomId(),
+    id: "a1b2zc3d4",
     name: "Men's Classic Blue",
     price: "79.90",
     img: "images/Shoe for sale/Sneaker-11.jpg",
@@ -136,7 +136,7 @@ export const sneakers = [
     altCategory: "Classic",
   },
   {
-    id: generateRandomId(),
+    id: "e5f6g7h8",
     name: "Women's Pink Suede",
     price: "59.90",
     img: "images/Shoe for sale/Sneaker-8.jpg",
@@ -144,7 +144,7 @@ export const sneakers = [
     altCategory: "Suede",
   },
   {
-    id: generateRandomId(),
+    id: "i9j0k1l2",
     name: "Women's Orange Sneaker",
     price: "44.90",
     img: "images/Shoe for sale/Sneaker-19.jpg",
@@ -152,15 +152,14 @@ export const sneakers = [
     altCategory: "Sneaker",
   },
   {
-    id: generateRandomId(),
+    id: "3m4nz5o6p",
     name: "Women's Cream Suede",
     price: "59.90",
     img: "images/Shoe for sale/Sneaker-7.jpg",
     category: "Women",
-    altCategory: "Suede",
   },
   {
-    id: generateRandomId(),
+    id: "7q8r9ms0t",
     name: "Men's Classic Mint",
     price: "79.90",
     discountedPrice: "69.00",
@@ -170,6 +169,6 @@ export const sneakers = [
   },
 ];
 
-function generateRandomId() {
-  return Math.random().toString(36).substring(7);
-}
+// function generateRandomId() {
+//   return Math.random().toString(36).substring(7);
+// }
